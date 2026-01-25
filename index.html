@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Grumpy Weather - Check the weather with attitude. Sarcastic weather forecasts with fun characters.">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta property="og:title" content="Grumpy Weather">
+    <meta property="og:description" content="Check the weather with attitude. Sarcastic weather forecasts with fun characters.">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/png" href="img/ic_launcher.png">
+    <title>Grumpy Weather</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            min-height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            transition: all 0.5s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background-attachment: fixed;
+            color: #fff;
+        }
+
+        body.light-mode {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 50%, #e2e8f0 100%);
+            background-attachment: fixed;
+            color: #1a202c;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* Left Panel - Weather */
+        .weather-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            position: relative;
+            align-self: stretch;
+        }
+
+        .location-info {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+        }
+
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+        }
+
+        .city-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            letter-spacing: 4px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .timestamp {
+            font-size: 18px;
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+
+        .weather-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .weather-icon-container {
+            position: relative;
+        }
+
+        .weather-icon {
+            width: 280px;
+            height: 280px;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .temp-container {
+            text-align: center;
+        }
+
+        .temp {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 140px;
+            letter-spacing: 5px;
+            line-height: 1;
+            text-shadow: 3px 3px 20px rgba(0,0,0,0.3);
+        }
+
+
+        .grumpy-text {
+            text-align: center;
+            max-width: 700px;
+            padding: 30px 50px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.5s ease;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 42px;
+            letter-spacing: 3px;
+            line-height: 1.2;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dark-mode .grumpy-text {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .light-mode .grumpy-text {
+            background: rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.1);
+            color: #1a202c;
+            text-shadow: none;
+        }
+
+        /* Right Panel - Forecast & Settings */
+        .side-panel {
+            width: 380px;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(20px);
+            align-self: stretch;
+        }
+
+        .dark-mode .side-panel {
+            background: rgba(0,0,0,0.3);
+        }
+
+        .light-mode .side-panel {
+            background: rgba(0,0,0,0.03);
+        }
+
+        /* Forecast Section */
+        .forecast-section {
+            padding: 30px;
+            flex: 1;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .forecast-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .forecast-day {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .forecast-day {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .light-mode .forecast-day {
+            background: rgba(0,0,0,0.03);
+        }
+
+        .forecast-day:hover {
+            transform: translateX(5px);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .forecast-day-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 2px;
+            width: 70px;
+        }
+
+        .forecast-icon {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin: 0 15px;
+        }
+
+        .forecast-temps {
+            flex: 1;
+            text-align: right;
+        }
+
+        .forecast-temp-high {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+        }
+
+        .forecast-temp-low {
+            font-size: 16px;
+            opacity: 0.6;
+        }
+
+        /* Settings Section */
+        .settings-section {
+            padding: 30px;
+        }
+
+        .settings-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .setting-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .setting-label {
+            font-size: 14px;
+            opacity: 0.8;
+            font-weight: 600;
+        }
+
+        .setting-row input[type="text"] {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            width: 180px;
+            transition: all 0.3s;
+        }
+
+        .dark-mode .setting-row input[type="text"] {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        .light-mode .setting-row input[type="text"] {
+            background: rgba(0,0,0,0.05);
+            color: #1a202c;
+        }
+
+        .setting-row input[type="text"]:focus {
+            outline: none;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .setting-row input[type="text"]::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .setting-row select {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dark-mode .setting-row select {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        .light-mode .setting-row select {
+            background: rgba(0,0,0,0.05);
+            color: #1a202c;
+        }
+
+        .setting-row select:focus {
+            outline: none;
+        }
+
+        .setting-row select option {
+            background: #333;
+            color: #fff;
+        }
+
+        /* Character Selector - Main Panel */
+        .character-selector {
+            display: flex;
+            gap: 12px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .character-tile {
+            width: 75px;
+            height: 75px;
+            border-radius: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .dark-mode .character-tile {
+            background: rgba(255,255,255,0.08);
+        }
+
+        .light-mode .character-tile {
+            background: rgba(0,0,0,0.05);
+        }
+
+        .character-tile:hover {
+            transform: translateY(-4px);
+        }
+
+        .dark-mode .character-tile:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .light-mode .character-tile:hover {
+            background: rgba(0,0,0,0.08);
+        }
+
+        .character-tile.selected {
+            transform: translateY(-4px);
+        }
+
+        .dark-mode .character-tile.selected {
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3), inset 0 0 0 2px rgba(255,255,255,0.3);
+        }
+
+        .light-mode .character-tile.selected {
+            background: rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1), inset 0 0 0 2px rgba(0,0,0,0.2);
+        }
+
+        .character-tile img {
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
+            transition: transform 0.2s ease;
+        }
+
+        .character-tile:hover img {
+            transform: scale(1.1);
+        }
+
+        .character-tile.selected img {
+            transform: scale(1.1);
+        }
+
+        /* All pack tile - app icon style */
+        .pack-all {
+            background: linear-gradient(145deg, #4a90d9 0%, #357abd 50%, #2868a9 100%);
+            border: none !important;
+            box-shadow: 0 4px 15px rgba(53,122,189,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+
+        .pack-all-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            letter-spacing: 3px;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .pack-all:hover {
+            background: linear-gradient(145deg, #5a9fe8 0%, #4589cc 50%, #3878b8 100%);
+            box-shadow: 0 6px 20px rgba(53,122,189,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        .light-mode .pack-all {
+            background: linear-gradient(145deg, #4a90d9 0%, #357abd 50%, #2868a9 100%);
+        }
+
+        .pack-all:not(.locked) {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        .pack-all.locked::after {
+            display: none;
+        }
+
+        /* Popular badge */
+        .popular-badge {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 10px;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 8px;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(255,100,100,0.4);
+        }
+
+        /* Locked indicator */
+        .character-tile.locked::after {
+            content: '$';
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            font-size: 10px;
+            font-weight: bold;
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Purchase Popup */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup {
+            background: linear-gradient(135deg, #2a2a4a 0%, #1a1a2e 100%);
+            border-radius: 24px;
+            padding: 30px;
+            max-width: 420px;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .popup-overlay.active .popup {
+            transform: scale(1);
+        }
+
+        .popup-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+        }
+
+        .popup-subtitle {
+            font-size: 14px;
+            opacity: 0.6;
+            margin-bottom: 20px;
+        }
+
+        .popup-character-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 16px;
+        }
+
+        .popup-character-item {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
+        .popup-text {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .popup-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 42px;
+            color: #4ade80;
+            margin-bottom: 20px;
+        }
+
+        .popup-price span {
+            font-size: 18px;
+            opacity: 0.7;
+        }
+
+        .popup-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .popup-btn {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .popup-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .popup-btn-cancel {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        .popup-btn-cancel:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .popup-btn-buy {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            color: #000;
+            font-weight: bold;
+        }
+
+        .popup-btn-buy:hover {
+            box-shadow: 0 5px 20px rgba(74, 222, 128, 0.4);
+        }
+
+        /* Light mode popup */
+        .light-mode .popup {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
+            color: #1a202c;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .light-mode .popup-character-grid {
+            background: rgba(0,0,0,0.05);
+        }
+
+        .light-mode .popup-btn-cancel {
+            background: rgba(0,0,0,0.08);
+            color: #1a202c;
+        }
+
+        .light-mode .popup-btn-cancel:hover {
+            background: rgba(0,0,0,0.12);
+        }
+
+        /* Toggle Switch */
+        .toggle {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.2);
+            transition: 0.3s;
+            border-radius: 26px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        .toggle input:checked + .toggle-slider {
+            background: rgba(74, 158, 255, 0.8);
+        }
+
+        .toggle input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Update Button */
+        .btn-update {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .dark-mode .btn-update {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .light-mode .btn-update {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .btn-update:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Credits */
+        .credits {
+            text-align: center;
+            padding: 15px 15px 30px 15px;
+            font-size: 12px;
+            opacity: 0.5;
+        }
+
+        .credits a {
+            color: inherit;
+        }
+
+        /* Weather details */
+        .weather-details {
+            display: flex;
+            gap: 30px;
+            margin-top: 10px;
+        }
+
+        .weather-detail {
+            text-align: center;
+        }
+
+        .weather-detail-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+        }
+
+        .weather-detail-label {
+            font-size: 12px;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Loading State */
+        .loading .weather-icon {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .weather-panel {
+                padding: 20px;
+            }
+
+            .location-info {
+                position: relative;
+                top: 0;
+                left: 0;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .city-name {
+                font-size: 36px;
+            }
+
+            .weather-icon {
+                width: 180px;
+                height: 180px;
+            }
+
+            .temp {
+                font-size: 80px;
+            }
+
+            .grumpy-text {
+                font-size: 28px;
+                padding: 20px 30px;
+            }
+
+            .side-panel {
+                width: 100%;
+            }
+
+            .forecast-list {
+                flex-direction: row;
+                overflow-x: auto;
+            }
+
+            .forecast-day {
+                flex-direction: column;
+                min-width: 100px;
+                text-align: center;
+            }
+
+            .forecast-temps {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="main-container">
+        <!-- Left Panel - Main Weather -->
+        <div class="weather-panel">
+            <div class="location-info">
+                <img class="app-icon" src="img/ic_launcher.png" alt="Grumpy Weather">
+                <div class="city-name" id="cityName">LOADING...</div>
+                <div class="timestamp" id="timestamp">--:--</div>
+            </div>
+
+            <div class="weather-content">
+                <div class="weather-icon-container">
+                    <img class="weather-icon" id="weatherIcon" src="img/grumpy_1.png" alt="Weather" onerror="this.style.opacity='0.3'">
+                </div>
+
+                <div class="temp-container">
+                    <div class="temp" id="temp">--°</div>
+                </div>
+
+                <div class="weather-details">
+                    <div class="weather-detail">
+                        <div class="weather-detail-value" id="humidity">--%</div>
+                        <div class="weather-detail-label">Humidity</div>
+                    </div>
+                    <div class="weather-detail">
+                        <div class="weather-detail-value" id="wind">-- km/h</div>
+                        <div class="weather-detail-label">Wind</div>
+                    </div>
+                    <div class="weather-detail">
+                        <div class="weather-detail-value" id="pressure">-- hPa</div>
+                        <div class="weather-detail-label">Pressure</div>
+                    </div>
+                </div>
+
+                <div class="grumpy-text" id="grumpyText">
+                    LOADING...
+                </div>
+
+                <div class="character-selector">
+                    <div class="character-tile" data-character="white">
+                        <img src="img/white_i801.png" alt="White">
+                    </div>
+                    <div class="character-tile" data-character="black">
+                        <img src="img/black_i801.png" alt="Black">
+                    </div>
+                    <div class="character-tile selected" data-character="grumpy">
+                        <img src="img/grumpy_1.png" alt="Grumpy">
+                    </div>
+                    <div class="character-tile locked" data-character="blob">
+                        <img src="img/blob_1.png" alt="Blob">
+                    </div>
+                    <div class="character-tile locked" data-character="brian">
+                        <img src="img/brian_1.png" alt="Brian">
+                    </div>
+                    <div class="character-tile locked" data-character="bunny">
+                        <img src="img/bunny_1.png" alt="Bunny">
+                    </div>
+                    <div class="character-tile locked" data-character="fred">
+                        <img src="img/fred_1.png" alt="Fred">
+                    </div>
+                    <div class="character-tile locked popular" data-character="grimmy">
+                        <img src="img/grimmy_1.png" alt="Grimmy">
+                        <span class="popular-badge">★ HOT</span>
+                    </div>
+                    <div class="character-tile locked" data-character="marvin">
+                        <img src="img/marvin_1.png" alt="Marvin">
+                    </div>
+                    <div class="character-tile locked" data-character="steve">
+                        <img src="img/steve_1.png" alt="Steve">
+                    </div>
+                    <div class="character-tile locked pack-all" data-character="all">
+                        <span class="pack-all-text">ALL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Forecast & Settings -->
+        <div class="side-panel">
+            <div class="forecast-section">
+                <div class="section-title">3-DAY FORECAST</div>
+                <div class="forecast-list">
+                    <div class="forecast-day">
+                        <div class="forecast-day-name" id="day1">--</div>
+                        <img class="forecast-icon" id="icon1" src="img/grumpy_1.png" alt="" onerror="this.style.opacity='0.3'">
+                        <div class="forecast-temps">
+                            <div class="forecast-temp-high" id="temp1">--°</div>
+                            <div class="forecast-temp-low" id="temp1n">--°</div>
+                        </div>
+                    </div>
+                    <div class="forecast-day">
+                        <div class="forecast-day-name" id="day2">--</div>
+                        <img class="forecast-icon" id="icon2" src="img/grumpy_1.png" alt="" onerror="this.style.opacity='0.3'">
+                        <div class="forecast-temps">
+                            <div class="forecast-temp-high" id="temp2">--°</div>
+                            <div class="forecast-temp-low" id="temp2n">--°</div>
+                        </div>
+                    </div>
+                    <div class="forecast-day">
+                        <div class="forecast-day-name" id="day3">--</div>
+                        <img class="forecast-icon" id="icon3" src="img/grumpy_1.png" alt="" onerror="this.style.opacity='0.3'">
+                        <div class="forecast-temps">
+                            <div class="forecast-temp-high" id="temp3">--°</div>
+                            <div class="forecast-temp-low" id="temp3n">--°</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-title">SETTINGS</div>
+                <div class="settings-grid">
+                    <div class="setting-row">
+                        <span class="setting-label">Auto Location</span>
+                        <label class="toggle">
+                            <input type="checkbox" id="autoLocation" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting-row" id="manualLocationRow" style="display: none;">
+                        <span class="setting-label">City</span>
+                        <input type="text" id="locationInput" placeholder="Warsaw, PL">
+                    </div>
+
+                    <div class="setting-row">
+                        <span class="setting-label">Units</span>
+                        <select id="units">
+                            <option value="metric">Celsius</option>
+                            <option value="imperial">Fahrenheit</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-row">
+                        <span class="setting-label">Theme</span>
+                        <select id="theme">
+                            <option value="dark">Dark</option>
+                            <option value="light">Light</option>
+                        </select>
+                    </div>
+
+                    <button class="btn-update" onclick="updateWeather()">REFRESH</button>
+                </div>
+            </div>
+
+            <div class="credits">
+                Powered by <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Purchase Popup -->
+    <div class="popup-overlay" id="purchasePopup">
+        <div class="popup">
+            <div class="popup-title" id="popupCharacterName">CHARACTER PACK</div>
+            <div class="popup-subtitle" id="popupSubtitle">12 weather icons included</div>
+            <div class="popup-character-grid" id="popupCharacterGrid">
+                <!-- Icons will be inserted here by JS -->
+            </div>
+            <div class="popup-text">Unlock this character pack to use it in your weather display.</div>
+            <div class="popup-price" id="popupPrice">$2 <span>USD</span></div>
+            <div class="popup-buttons">
+                <button class="popup-btn popup-btn-cancel" onclick="closePopup()">CANCEL</button>
+                <button class="popup-btn popup-btn-buy" onclick="purchaseCharacter()">BUY NOW</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = '258a22ab3066f55cb77b8e2781346ff6';
+        const API_BASE = 'https://api.openweathermap.org/data/2.5/';
+
+        // Grumpy texts by ID
+        const grumpyTextsById = {
+            1: "YOUR MOTHER PAID THE BILLS SO TURN ON YOUR FUCKING INTERNET",
+            2: "I HATE YOU. GET LOST",
+            3: "I DON'T KNOW WHAT THE FUCK IS GOING ON, BUT SOMETHING WENT WRONG.",
+            4: "FUCKING FARTS IN THE SKY",
+            5: "GREAT, GOD FARTS AND FUCKING RAIN",
+            6: "ZEUS, GO FUCK YOURSELF",
+            7: "THUNDERSTORM STRAIGHT FROM THE FUCKING HELL",
+            8: "NOW THIS IS A FUCKING STORM!",
+            10: "FUCKING PETITE SHIT-RAINING WEATHER",
+            11: "ARE YOU CALLING THIS SHIT A RAIN?",
+            12: "GET YOUR SHIT TOGETHER! IT IS NOT A RAIN.",
+            13: "SHITTY RAIN AS ALWAYS",
+            14: "RAIN FOR FUCKING PUSSIES",
+            15: "GET YOUR SHIT TOGETHER. IT'S JUST RAIN",
+            16: "WHY THE FUCK MUST IT RAIN RIGHT NOW?",
+            17: "NOW THIS IS FUCKING RAIN!",
+            18: "RAINING AS FUCK",
+            19: "C'MON, IT'S LIKE SNOW FOR PUSSIES",
+            20: "WHITE SHIT FALLING FROM THE SKY",
+            21: "WHITE WET CRAP... FUCKING GREAT",
+            22: "BLIZZARD LIKE FUCK",
+            23: "I'VE GOT ENOUGH OF THIS WHITE CRAP",
+            24: "CAN'T SEE A DAMN THING",
+            25: "FUCKING BLINDMAN WALK",
+            26: "DAMN AIR TRIES TO FUCKING KILL ME!",
+            27: "FUCKING GREY LIKE MY LIFE",
+            28: "COLORS OF MY FUCKING LIFE. GREY AND MORE GREY",
+            29: "IT'S GREY OUTSIDE... WONDERFUL",
+            30: "FOG FOR PUSSIES",
+            31: "FUCKING 50 SHADES OF GREY",
+            32: "WORLD TELLS ME THAT TODAY WILL BE A BAD DAY",
+            33: "RUN FOR YOUR FUCKING LIFE!",
+            34: "FUCKINGS COWS FLYING LOW!",
+            35: "A LITTLE WINDY DON'T YOU THINK?",
+            37: "WHERE THE HELL ARE WE? ON NORTH POLE?",
+            40: "I AM MELTING FOR GODS SAKE!",
+            42: "FUCKING WIND ALWAYS IN THE FACE",
+            43: "FUCKING SNOW BOMBS FALLING RIGHT AT YOU!",
+            44: "I'M IN FUCKING FREEZER OR WHAT?",
+            45: "I FUCKING LOVE HAVING SAND IN MY EYES",
+            46: "I DON'T KNOW WHERE THE HELL I AM. TURN ON FUCKING LOCATION ACCESS.",
+            47: "THUNDERSTORM FOR PUSSIES",
+            48: "ARE YOU LOST AGAIN? TURN THE FUCKING LOCATION ACCESS",
+            49: "ARE YOU FUCKING KIDDING ME? HOW CAN I WORK WITHOUT FUCKING INTERNET?",
+            50: "I QUIT THIS FUCKING JOB",
+            51: "IT IS NOT MY FUCKING FAULT THAT THE WEATHER IS FUCKED UP!",
+            52: "WHAT ARE YOU LOOKING AT? EVERYBODY CAN HAVE FUCKING ERRORS!",
+            53: "FUCK LIGHTNINGS, I AM OUT OF HERE",
+            54: "THUNDERSTORM COMING THIS FUCKING WAY",
+            55: "WHOS IDEA WAS TO PUT FUCKING LIGHTNINGS IN THE FUCKING SKY?",
+            56: "THUNDERSTORM STRAIGHT FROM THE FUCKING ASS",
+            57: "IS IT RAINING OR JUST FUCKING WITH ME?",
+            58: "TODAY IS \"GET FUCKED UP BY RAIN\" DAY",
+            59: "IS IT FUCKING RAINING OR WHAT?",
+            60: "I FUCKING LOVE BEING FUCKED UP BY RAIN...",
+            61: "WHITE SHIT IS EVERYWHERE...",
+            62: "WHITE SHIT AND WET CRAP TOGETHER. MY BELOVED CONNECTION...",
+            63: "FUCKING NORTH POLE WELCOMES YOU",
+            64: "GREY ESSENCE OF MY LIFE",
+            65: "I FUCKING LOVE HAVING SAND IN MY EYES",
+            66: "A LITTLE FUCKING WINDY DON'T YOU THINK?",
+            67: "TURNING ON LOCATION ACCESS WOULD FUCKING HELP ME, YOU KNOW?",
+            68: "TURNING ON FUCKING INTERNET WOULD HELP ME, YOU KNOW?",
+            69: "I'VE LOST FUCKING CONNECTION, SO GIVE ME A BREAK.",
+            70: "ERRORS, ERRORS, EVERYWHERE FUCKING ERRORS.",
+            72: "SUN IS TOO FUCKING BRIGHT FOR MY EYEBALLS",
+            74: "LEAVE ME ALONE AND ENJOY YOUR FUCKING WEATHER. I'LL PASS.",
+            75: "I THOUGHT THAT WEATHER COULDN'T BE MORE MISERABLE. THIS PROVED ME WRONG.",
+            76: "DO YOU KNOW WHAT IS GREAT ABOUT THIS WEATHER? FUCKING NOTHING",
+            77: "IT IS A GOOD DAY FOR APOCALYPSE TO START",
+            78: "YEAH, ONE MORE DAY CLOSER TO DEATH",
+            79: "WE WILL DIE IN 100M YEARS ANYWAY",
+            80: "I SAW NICE WEATHER ONCE. IT WAS AWFUL",
+            81: "DARE TO SMILE? DON'T FORGET THAT TOMORROW IT WILL BE FUCKING WORSE.",
+            82: "ENJOY WEATHER WHILE YOU CAN. TOMORROW IT WILL BE WORSE.",
+            83: "WHAT IS THE WEATHER LIKE? WHO FUCKING CARES?"
+        };
+
+        // Grumpy text IDs for different weather conditions (from arrays.xml)
+        const grumpyTextIds = {
+            // Errors
+            1100: [46, 48, 67],
+            1200: [1, 49, 68, 83],
+            1300: [2, 50, 51, 69],
+            1400: [3, 52, 70],
+
+            // Thunderstorm (200s)
+            200: [5, 6, 8],
+            201: [5, 47],
+            202: [5, 8],
+            210: [4, 54, 55, 47],
+            211: [6, 53, 55],
+            212: [8, 55, 56],
+            221: [7, 56, 8],
+            230: [47, 5],
+            231: [47, 5],
+            232: [47, 5],
+
+            // Drizzle (300s)
+            300: [10, 11, 12, 13, 57],
+            301: [10, 11, 12, 13, 57],
+            302: [10, 11, 12, 13, 57],
+            310: [10, 11, 12, 13, 57],
+            311: [10, 11, 12, 13, 57],
+            312: [10, 11, 12, 13, 57],
+            321: [10, 11, 12, 13, 57],
+
+            // Rain (500s)
+            500: [14, 15, 59],
+            501: [15, 58, 16],
+            502: [16, 17, 18, 60],
+            503: [16, 17, 18, 60],
+            504: [16, 17, 18, 60],
+            511: [44, 18, 60],
+            520: [14, 15, 58, 16],
+            521: [15, 58, 16],
+            522: [17, 16, 18, 60, 58],
+
+            // Snow (600s)
+            600: [19, 20],
+            601: [20, 61, 23],
+            602: [22, 61, 20, 23],
+            611: [21, 62],
+            621: [23, 63, 22],
+
+            // Atmosphere (700s)
+            701: [24, 64, 25],
+            711: [26],
+            721: [30],
+            731: [45],
+            741: [24, 64, 25],
+
+            // Clear/Clouds (800s)
+            800: [32, 72, 74, 75, 76, 77, 78, 79, 80, 81, 82],
+            801: [27, 28],
+            802: [29],
+            803: [28],
+            804: [31, 28],
+
+            // Extreme (900s)
+            900: [34],
+            901: [33],
+            902: [35],
+            903: [37, 44],
+            904: [40],
+            905: [42, 65, 66, 34],
+            906: [43]
+        };
+
+        const weatherIconMap = {
+            1100: 10, 1200: 10, 1300: 10, 1400: 10,
+            200: 6, 201: 6, 202: 6, 210: 6, 211: 6, 212: 6, 221: 6, 230: 6, 231: 6, 232: 6,
+            300: 5, 301: 5, 302: 5, 310: 5, 311: 5, 312: 5, 321: 5,
+            500: 5, 501: 5, 502: 5, 503: 5, 504: 5, 511: 9, 520: 5, 521: 5, 522: 5,
+            600: 3, 601: 3, 602: 3, 611: 3, 621: 3,
+            701: 7, 711: 7, 721: 7, 731: 7, 741: 7,
+            800: { day: 1, night: 2 }, 801: { day: 1, night: 2 },
+            802: 11, 803: 11, 804: 11,
+            900: 10, 901: 10, 902: 10, 903: 9, 904: 12, 905: 8, 906: 4
+        };
+
+        const defaultIconMap = {
+            1100: 'i1001', 1200: 'i1001', 1300: 'i1001', 1400: 'i1001',
+            200: 'i201', 201: 'i201', 202: 'i202', 210: 'i201', 211: 'i201', 212: 'i202',
+            221: 'i202', 230: 'i201', 231: 'i201', 232: 'i202',
+            300: 'i301', 301: 'i301', 302: 'i301', 310: 'i301', 311: 'i301', 312: 'i301', 321: 'i301',
+            500: 'i501', 501: 'i502', 502: 'i502', 503: 'i502', 504: 'i502', 511: 'i502',
+            520: 'i502', 521: 'i502', 522: 'i502',
+            600: 'i601', 601: 'i602', 602: 'i602', 611: 'i601', 621: 'i601',
+            701: { day: 'i701', night: 'i702' }, 711: { day: 'i701', night: 'i702' },
+            721: { day: 'i701', night: 'i702' }, 731: 'i703', 741: 'i703',
+            800: { day: 'i801', night: 'i802' }, 801: { day: 'i803', night: 'i804' },
+            802: 'i805', 803: 'i806', 804: 'i806',
+            900: 'i901', 901: 'i202', 902: 'i901', 903: { day: 'i801', night: 'i802' },
+            904: { day: 'i801', night: 'i802' }, 905: 'i901', 906: 'i902'
+        };
+
+        const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+        let settings = {
+            location: 'Warsaw,PL',
+            autoLocation: true,
+            units: 'metric',
+            theme: 'dark',
+            character: 'grumpy'
+        };
+
+        let currentCoords = null;
+
+        function loadSettings() {
+            const saved = localStorage.getItem('grumpyWeatherSettings');
+            if (saved) {
+                settings = { ...settings, ...JSON.parse(saved) };
+            }
+
+            document.getElementById('locationInput').value = settings.location;
+            document.getElementById('autoLocation').checked = settings.autoLocation;
+            document.getElementById('units').value = settings.units;
+            document.getElementById('theme').value = settings.theme;
+
+            // Set selected character visually
+            document.querySelectorAll('.character-tile').forEach(opt => {
+                opt.classList.toggle('selected', opt.dataset.character === settings.character);
+            });
+
+            toggleManualLocation();
+            applyTheme();
+        }
+
+        function saveSettings() {
+            settings.location = document.getElementById('locationInput').value || 'Warsaw,PL';
+            settings.autoLocation = document.getElementById('autoLocation').checked;
+            settings.units = document.getElementById('units').value;
+            settings.theme = document.getElementById('theme').value;
+            // character is set via click handler
+
+            localStorage.setItem('grumpyWeatherSettings', JSON.stringify(settings));
+            applyTheme();
+        }
+
+        function applyTheme() {
+            document.body.className = settings.theme + '-mode';
+        }
+
+        function toggleManualLocation() {
+            const row = document.getElementById('manualLocationRow');
+            row.style.display = settings.autoLocation ? 'none' : 'flex';
+        }
+
+        // Character sets that use numbered icons (like grumpy_1.png)
+        const numberedCharacters = ['grumpy', 'blob', 'brian', 'bunny', 'fred', 'grimmy', 'marvin', 'steve'];
+
+        function getIcon(weatherCode, isDay = true) {
+            const character = settings.character;
+
+            if (numberedCharacters.includes(character)) {
+                let iconNum = weatherIconMap[weatherCode];
+                if (!iconNum) {
+                    const baseCode = Math.floor(weatherCode / 100) * 100;
+                    iconNum = weatherIconMap[baseCode] || 10;
+                }
+                if (typeof iconNum === 'object') {
+                    iconNum = isDay ? iconNum.day : iconNum.night;
+                }
+                return `img/${character}_${iconNum}.png`;
+            } else {
+                let iconName = defaultIconMap[weatherCode];
+                if (!iconName) {
+                    const baseCode = Math.floor(weatherCode / 100) * 100;
+                    iconName = defaultIconMap[baseCode] || 'i1001';
+                }
+                if (typeof iconName === 'object') {
+                    iconName = isDay ? iconName.day : iconName.night;
+                }
+                return `img/${character}_${iconName}.png`;
+            }
+        }
+
+        function getGrumpyText(weatherCode, temp) {
+            const isMetric = settings.units === 'metric';
+            const isHot = isMetric ? temp >= 30 : temp >= 85;
+            const isCold = isMetric ? temp <= -10 : temp <= 15;
+
+            if (weatherCode >= 800 && weatherCode < 900) {
+                if (isHot) weatherCode = 904;
+                else if (isCold) weatherCode = 903;
+            }
+
+            let textIds = grumpyTextIds[weatherCode];
+            if (!textIds) {
+                const baseCode = Math.floor(weatherCode / 100) * 100;
+                textIds = grumpyTextIds[baseCode] || grumpyTextIds[1400];
+            }
+
+            const textId = textIds[Math.floor(Math.random() * textIds.length)];
+            return grumpyTextsById[textId] || "WHAT IS THE WEATHER LIKE? WHO FUCKING CARES?";
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const day = days[now.getDay()];
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('timestamp').textContent = `${day} ${hours}:${minutes}`;
+        }
+
+        async function getLocationCoords() {
+            // Check if running on file:// protocol
+            if (window.location.protocol === 'file:') {
+                throw new Error('Geolocation requires HTTP server. Run: python3 -m http.server 8000');
+            }
+
+            return new Promise((resolve, reject) => {
+                if (!navigator.geolocation) {
+                    reject(new Error('Geolocation not supported'));
+                    return;
+                }
+
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        currentCoords = {
+                            lat: position.coords.latitude,
+                            lon: position.coords.longitude
+                        };
+                        resolve(currentCoords);
+                    },
+                    error => {
+                        let msg = 'Location error';
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                msg = 'Location permission denied';
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                msg = 'Location unavailable';
+                                break;
+                            case error.TIMEOUT:
+                                msg = 'Location request timeout';
+                                break;
+                        }
+                        reject(new Error(msg));
+                    },
+                    { timeout: 15000, enableHighAccuracy: true, maximumAge: 300000 }
+                );
+            });
+        }
+
+        async function fetchWeather(location) {
+            const unitParam = settings.units;
+            let url;
+
+            if (typeof location === 'object') {
+                url = `${API_BASE}weather?lat=${location.lat}&lon=${location.lon}&units=${unitParam}&appid=${API_KEY}`;
+            } else {
+                url = `${API_BASE}weather?q=${encodeURIComponent(location)}&units=${unitParam}&appid=${API_KEY}`;
+            }
+
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Weather data not found');
+            return response.json();
+        }
+
+        async function fetchForecast(location) {
+            const unitParam = settings.units;
+            let url;
+
+            if (typeof location === 'object') {
+                url = `${API_BASE}forecast?lat=${location.lat}&lon=${location.lon}&units=${unitParam}&appid=${API_KEY}`;
+            } else {
+                url = `${API_BASE}forecast?q=${encodeURIComponent(location)}&units=${unitParam}&appid=${API_KEY}`;
+            }
+
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Forecast data not found');
+            return response.json();
+        }
+
+        function displayWeather(data) {
+            const weatherCode = data.weather[0].id;
+            const temp = Math.round(data.main.temp);
+            const isDay = data.weather[0].icon.endsWith('d');
+            const windUnit = settings.units === 'metric' ? 'km/h' : 'mph';
+            const windSpeed = settings.units === 'metric'
+                ? Math.round(data.wind.speed * 3.6)
+                : Math.round(data.wind.speed);
+
+            document.getElementById('cityName').textContent = data.name.toUpperCase();
+            document.getElementById('temp').textContent = temp + '°';
+            document.getElementById('humidity').textContent = data.main.humidity + '%';
+            document.getElementById('wind').textContent = windSpeed + ' ' + windUnit;
+            document.getElementById('pressure').textContent = data.main.pressure + ' hPa';
+            document.getElementById('weatherIcon').src = getIcon(weatherCode, isDay);
+            document.getElementById('grumpyText').textContent = getGrumpyText(weatherCode, temp);
+
+            document.body.classList.remove('loading');
+        }
+
+        function displayForecast(data) {
+            const today = new Date().getDate();
+            const dailyData = {};
+
+            data.list.forEach(item => {
+                const date = new Date(item.dt * 1000);
+                const day = date.getDate();
+                const hour = date.getHours();
+
+                if (day === today) return;
+
+                if (!dailyData[day]) {
+                    dailyData[day] = { day: date.getDay(), temps: [], codes: [] };
+                }
+
+                dailyData[day].temps.push(item.main.temp);
+                if (hour >= 11 && hour <= 14) {
+                    dailyData[day].codes.push(item.weather[0].id);
+                }
+            });
+
+            const suffix = settings.units === 'metric' ? '°' : '°';
+            const forecasts = Object.values(dailyData).slice(0, 3);
+
+            forecasts.forEach((forecast, i) => {
+                const dayNum = i + 1;
+                const maxTemp = Math.round(Math.max(...forecast.temps));
+                const minTemp = Math.round(Math.min(...forecast.temps));
+                const weatherCode = forecast.codes[0] || 800;
+
+                document.getElementById(`day${dayNum}`).textContent = days[forecast.day];
+                document.getElementById(`temp${dayNum}`).textContent = maxTemp + suffix;
+                document.getElementById(`temp${dayNum}n`).textContent = minTemp + suffix;
+                document.getElementById(`icon${dayNum}`).src = getIcon(weatherCode, true);
+            });
+        }
+
+        function showError(code, customMessage = null) {
+            document.getElementById('cityName').textContent = 'ERROR';
+            document.getElementById('temp').textContent = '--°';
+            document.getElementById('weatherIcon').src = getIcon(code, true);
+            document.getElementById('grumpyText').textContent = getGrumpyText(code, 0);
+            document.body.classList.remove('loading');
+        }
+
+        async function updateWeather() {
+            saveSettings();
+            document.body.classList.add('loading');
+            document.getElementById('grumpyText').textContent = '...';
+
+            try {
+                let location;
+
+                if (settings.autoLocation) {
+                    try {
+                        location = await getLocationCoords();
+                    } catch (e) {
+                        console.error('Geolocation error:', e);
+                        showError(1100, e.message);
+                        return;
+                    }
+                } else {
+                    location = settings.location;
+                }
+
+                const [weatherData, forecastData] = await Promise.all([
+                    fetchWeather(location),
+                    fetchForecast(location)
+                ]);
+
+                displayWeather(weatherData);
+                displayForecast(forecastData);
+
+            } catch (error) {
+                console.error('Error:', error);
+                if (error.message.includes('not found')) {
+                    showError(1400);
+                } else {
+                    showError(1200);
+                }
+            }
+        }
+
+        // Event listeners
+        document.getElementById('theme').addEventListener('change', function() {
+            settings.theme = this.value;
+            applyTheme();
+            saveSettings();
+        });
+
+        // Free characters
+        const freeCharacters = ['white', 'black', 'grumpy'];
+        let pendingCharacter = null;
+
+        // Character display names
+        const characterNames = {
+            white: 'Default White',
+            black: 'Default Black',
+            grumpy: 'Cat the Grumpy',
+            steve: 'Steve the Dinosaur',
+            marvin: 'Marvin the Yeti',
+            fred: 'Fred the Old Geezer',
+            bunny: 'Jack the Bunny',
+            brian: 'Brian the Dead One',
+            blob: 'Blob the Slime',
+            grimmy: 'Grimmy the Reaper',
+            all: 'All Characters Pack'
+        };
+
+        // Paid characters list
+        const paidCharacters = ['blob', 'brian', 'bunny', 'fred', 'grimmy', 'marvin', 'steve'];
+
+        // Stripe links
+        const stripeLinks = {
+            all: 'https://buy.stripe.com/aFa5kv0YFfLpepL7qEfAc01',
+            grimmy: 'https://buy.stripe.com/6oU7sD0YFeHlbdz4esfAc00',
+            brian: 'https://buy.stripe.com/5kQdR1fTzar5dlHbGUfAc03',
+            bunny: 'https://buy.stripe.com/14A5kv7n36aPepLeT6fAc04',
+            fred: 'https://buy.stripe.com/eVq14f22J2YD0yV8uIfAc05',
+            marvin: 'https://buy.stripe.com/3cIcMX36NgPt2H39yMfAc06',
+            steve: 'https://buy.stripe.com/14AbIT7n3fLpepLcKYfAc07',
+            blob: 'https://buy.stripe.com/7sY14f7n356LftPeT6fAc08'
+        };
+
+        // Character tile click handler
+        document.querySelectorAll('.character-tile').forEach(tile => {
+            tile.addEventListener('click', function() {
+                const character = this.dataset.character;
+
+                // "All" pack is only for purchasing
+                if (character === 'all') {
+                    if (this.classList.contains('locked')) {
+                        showPurchasePopup('all');
+                    }
+                    return;
+                }
+
+                // Check if character is locked (paid)
+                if (!freeCharacters.includes(character) && this.classList.contains('locked')) {
+                    showPurchasePopup(character);
+                    return;
+                }
+
+                selectCharacter(character);
+            });
+        });
+
+        function selectCharacter(character) {
+            document.querySelectorAll('.character-tile').forEach(t => t.classList.remove('selected'));
+            document.querySelector(`.character-tile[data-character="${character}"]`).classList.add('selected');
+            settings.character = character;
+            saveSettings();
+            updateWeather();
+        }
+
+        function showPurchasePopup(character) {
+            pendingCharacter = character;
+
+            const grid = document.getElementById('popupCharacterGrid');
+            grid.innerHTML = '';
+
+            if (character === 'all') {
+                // Show 1 icon from each paid character (7 total)
+                paidCharacters.forEach(char => {
+                    const img = document.createElement('img');
+                    img.className = 'popup-character-item';
+                    img.src = `img/${char}_1.png`;
+                    img.alt = char;
+                    grid.appendChild(img);
+                });
+                document.getElementById('popupSubtitle').textContent = '7 character packs (84 icons)';
+                document.getElementById('popupPrice').innerHTML = '$10 <span>USD</span>';
+            } else {
+                // Generate grid of all 12 character variants
+                for (let i = 1; i <= 12; i++) {
+                    const img = document.createElement('img');
+                    img.className = 'popup-character-item';
+                    img.src = `img/${character}_${i}.png`;
+                    img.alt = `${character} ${i}`;
+                    grid.appendChild(img);
+                }
+                document.getElementById('popupSubtitle').textContent = '12 weather icons included';
+                document.getElementById('popupPrice').innerHTML = '$2 <span>USD</span>';
+            }
+
+            document.getElementById('popupCharacterName').textContent = (characterNames[character] || character).toUpperCase();
+            document.getElementById('purchasePopup').classList.add('active');
+        }
+
+        function closePopup() {
+            document.getElementById('purchasePopup').classList.remove('active');
+            pendingCharacter = null;
+        }
+
+        function purchaseCharacter() {
+            if (pendingCharacter && stripeLinks[pendingCharacter]) {
+                // Save pending character to localStorage so we can unlock after payment
+                localStorage.setItem('pendingPurchase', pendingCharacter);
+
+                // Redirect to Stripe - use top level to break out of iframe
+                window.top.location.href = stripeLinks[pendingCharacter];
+            }
+        }
+
+        // Reset purchases (for testing)
+        function resetPurchases() {
+            localStorage.removeItem('unlockedCharacters');
+            localStorage.removeItem('pendingPurchase');
+            location.reload();
+        }
+
+        // Check if returning from successful payment
+        function checkPendingPurchase() {
+            const pending = localStorage.getItem('pendingPurchase');
+            if (pending && window.location.search.includes('success')) {
+                let unlocked = JSON.parse(localStorage.getItem('unlockedCharacters') || '[]');
+
+                if (pending === 'all') {
+                    // Unlock all paid characters
+                    paidCharacters.forEach(char => {
+                        const tile = document.querySelector(`.character-tile[data-character="${char}"]`);
+                        if (tile) tile.classList.remove('locked');
+                        if (!unlocked.includes(char)) {
+                            unlocked.push(char);
+                        }
+                    });
+                    // Also mark 'all' tile as unlocked
+                    const allTile = document.querySelector('.character-tile[data-character="all"]');
+                    if (allTile) allTile.classList.remove('locked');
+
+                    localStorage.setItem('unlockedCharacters', JSON.stringify(unlocked));
+                    // Select first paid character
+                    selectCharacter('blob');
+                } else {
+                    // Unlock single character
+                    const tile = document.querySelector(`.character-tile[data-character="${pending}"]`);
+                    if (tile) tile.classList.remove('locked');
+
+                    if (!unlocked.includes(pending)) {
+                        unlocked.push(pending);
+                        localStorage.setItem('unlockedCharacters', JSON.stringify(unlocked));
+                    }
+
+                    selectCharacter(pending);
+                }
+
+                // Clear pending purchase
+                localStorage.removeItem('pendingPurchase');
+            }
+        }
+
+        // Close popup on overlay click
+        document.getElementById('purchasePopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePopup();
+            }
+        });
+
+        // Close popup on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePopup();
+            }
+            // Hidden reset: Ctrl+Shift+R
+            if (e.ctrlKey && e.shiftKey && e.key === 'R') {
+                e.preventDefault();
+                if (confirm('Reset all purchases?')) {
+                    resetPurchases();
+                }
+            }
+        });
+
+        // Load unlocked characters on startup
+        function loadUnlockedCharacters() {
+            const unlocked = JSON.parse(localStorage.getItem('unlockedCharacters') || '[]');
+            unlocked.forEach(char => {
+                const tile = document.querySelector(`.character-tile[data-character="${char}"]`);
+                if (tile) tile.classList.remove('locked');
+            });
+
+            // If all paid characters are unlocked, also unlock the "all" tile
+            const allUnlocked = paidCharacters.every(char => unlocked.includes(char));
+            if (allUnlocked) {
+                const allTile = document.querySelector('.character-tile[data-character="all"]');
+                if (allTile) allTile.classList.remove('locked');
+            }
+        }
+
+        document.getElementById('units').addEventListener('change', function() {
+            saveSettings();
+            updateWeather();
+        });
+
+        document.getElementById('autoLocation').addEventListener('change', function() {
+            settings.autoLocation = this.checked;
+            toggleManualLocation();
+            saveSettings();
+            if (this.checked) {
+                updateWeather();
+            }
+        });
+
+        // Initialize
+        loadUnlockedCharacters();
+        checkPendingPurchase();
+        loadSettings();
+        updateTime();
+        setInterval(updateTime, 60000);
+
+        // Auto-refresh every 30 minutes
+        setInterval(updateWeather, 30 * 60 * 1000);
+
+        // Start with geolocation
+        updateWeather();
+    </script>
+</body>
+</html>
