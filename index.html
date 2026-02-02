@@ -1,14 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9MNL4FW7WY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9MNL4FW7WY');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Grumpy Weather - Check the weather with attitude. Sarcastic weather forecasts with fun characters.">
     <meta name="theme-color" content="#1a1a2e">
-    <meta property="og:title" content="Grumpy Weather">
+    <meta property="og:title" content="Grumpy Weather - Sarcastic Weather Forecasts">
     <meta property="og:description" content="Check the weather with attitude. Sarcastic weather forecasts with fun characters.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://grumpyweather.com/">
+    <meta property="og:image" content="https://grumpyweather.com/img/ic_launcher.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Grumpy Weather">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Grumpy Weather - Sarcastic Weather Forecasts">
+    <meta name="twitter:description" content="Check the weather with attitude. Sarcastic weather forecasts with fun characters.">
+    <meta name="twitter:image" content="https://grumpyweather.com/img/ic_launcher.png">
+    <link rel="canonical" href="https://grumpyweather.com/">
     <link rel="icon" type="image/png" href="img/ic_launcher.png">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Grumpy Weather",
+        "url": "https://grumpyweather.com",
+        "description": "Sarcastic weather forecasts with attitude. Check the weather with fun characters.",
+        "applicationCategory": "WeatherApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript and HTML5",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Grumpy Weather"
+        }
+    }
+    </script>
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <title>Grumpy Weather</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
@@ -801,13 +843,13 @@
         <div class="weather-panel">
             <div class="location-info">
                 <img class="app-icon" src="img/ic_launcher.png" alt="Grumpy Weather">
-                <div class="city-name" id="cityName">LOADING...</div>
+                <h1 class="city-name" id="cityName">LOADING...</h1>
                 <div class="timestamp" id="timestamp">--:--</div>
             </div>
 
             <div class="weather-content">
                 <div class="weather-icon-container">
-                    <img class="weather-icon" id="weatherIcon" src="img/grumpy_1.png" alt="Weather" onerror="this.style.opacity='0.3'">
+                    <img class="weather-icon" id="weatherIcon" src="img/grumpy_1.png" alt="Weather" width="280" height="280" onerror="this.style.opacity='0.3'">
                 </div>
 
                 <div class="temp-container">
@@ -835,35 +877,35 @@
 
                 <div class="character-selector">
                     <div class="character-tile" data-character="white">
-                        <img src="img/white_i801.png" alt="White">
+                        <img src="img/white_i801.png" alt="White character" width="55" height="55" loading="lazy">
                     </div>
                     <div class="character-tile" data-character="black">
-                        <img src="img/black_i801.png" alt="Black">
+                        <img src="img/black_i801.png" alt="Black character" width="55" height="55" loading="lazy">
                     </div>
                     <div class="character-tile selected" data-character="grumpy">
-                        <img src="img/grumpy_1.png" alt="Grumpy">
+                        <img src="img/grumpy_1.png" alt="Grumpy cat character" width="55" height="55" loading="lazy">
                     </div>
                     <div class="character-tile locked" data-character="blob">
-                        <img src="img/blob_1.png" alt="Blob">
+                        <img src="img/blob_1.png" alt="Blob character" width="55" height="55" loading="lazy">
                     </div>
                     <div class="character-tile locked" data-character="brian">
-                        <img src="img/brian_1.png" alt="Brian">
+                        <img src="img/brian_1.png" alt="Brian character" width="55" height="55" loading="lazy">
                     </div>
                     <div class="character-tile locked" data-character="bunny">
-                        <img src="img/bunny_1.png" alt="Bunny">
+                        <img src="img/bunny_1.png" alt="Bunny character" width="55" height="55" loading="lazy">
                     </div>
                     <div class="character-tile locked" data-character="fred">
-                        <img src="img/fred_1.png" alt="Fred">
+                        <img src="img/fred_1.png" alt="Fred character" width="55" height="55" loading="lazy">
                     </div>
                     <div class="character-tile locked popular" data-character="grimmy">
-                        <img src="img/grimmy_1.png" alt="Grimmy">
+                        <img src="img/grimmy_1.png" alt="Grimmy reaper character" width="55" height="55" loading="lazy">
                         <span class="popular-badge">★ HOT</span>
                     </div>
                     <div class="character-tile locked" data-character="marvin">
-                        <img src="img/marvin_1.png" alt="Marvin">
+                        <img src="img/marvin_1.png" alt="Marvin yeti character" width="55" height="55" loading="lazy">
                     </div>
                     <div class="character-tile locked" data-character="steve">
-                        <img src="img/steve_1.png" alt="Steve">
+                        <img src="img/steve_1.png" alt="Steve dinosaur character" width="55" height="55" loading="lazy">
                     </div>
                     <div class="character-tile locked pack-all" data-character="all">
                         <span class="pack-all-text">ALL</span>
@@ -879,7 +921,7 @@
                 <div class="forecast-list">
                     <div class="forecast-day">
                         <div class="forecast-day-name" id="day1">--</div>
-                        <img class="forecast-icon" id="icon1" src="img/grumpy_1.png" alt="" onerror="this.style.opacity='0.3'">
+                        <img class="forecast-icon" id="icon1" src="img/grumpy_1.png" alt="Weather forecast day 1" width="50" height="50" loading="lazy" onerror="this.style.opacity='0.3'">
                         <div class="forecast-temps">
                             <div class="forecast-temp-high" id="temp1">--°</div>
                             <div class="forecast-temp-low" id="temp1n">--°</div>
@@ -887,7 +929,7 @@
                     </div>
                     <div class="forecast-day">
                         <div class="forecast-day-name" id="day2">--</div>
-                        <img class="forecast-icon" id="icon2" src="img/grumpy_1.png" alt="" onerror="this.style.opacity='0.3'">
+                        <img class="forecast-icon" id="icon2" src="img/grumpy_1.png" alt="Weather forecast day 2" width="50" height="50" loading="lazy" onerror="this.style.opacity='0.3'">
                         <div class="forecast-temps">
                             <div class="forecast-temp-high" id="temp2">--°</div>
                             <div class="forecast-temp-low" id="temp2n">--°</div>
@@ -895,7 +937,7 @@
                     </div>
                     <div class="forecast-day">
                         <div class="forecast-day-name" id="day3">--</div>
-                        <img class="forecast-icon" id="icon3" src="img/grumpy_1.png" alt="" onerror="this.style.opacity='0.3'">
+                        <img class="forecast-icon" id="icon3" src="img/grumpy_1.png" alt="Weather forecast day 3" width="50" height="50" loading="lazy" onerror="this.style.opacity='0.3'">
                         <div class="forecast-temps">
                             <div class="forecast-temp-high" id="temp3">--°</div>
                             <div class="forecast-temp-low" id="temp3n">--°</div>
@@ -909,8 +951,8 @@
                 <div class="settings-grid">
                     <div class="setting-row">
                         <span class="setting-label">Auto Location</span>
-                        <label class="toggle">
-                            <input type="checkbox" id="autoLocation" checked>
+                        <label class="toggle" aria-label="Auto location toggle">
+                            <input type="checkbox" id="autoLocation" checked aria-label="Enable automatic location detection">
                             <span class="toggle-slider"></span>
                         </label>
                     </div>
@@ -936,7 +978,7 @@
                         </select>
                     </div>
 
-                    <button class="btn-update" onclick="updateWeather()">REFRESH</button>
+                    <button type="button" class="btn-update" onclick="updateWeather()" aria-label="Refresh weather data">REFRESH</button>
                 </div>
             </div>
 
@@ -947,7 +989,7 @@
     </div>
 
     <!-- Purchase Popup -->
-    <div class="popup-overlay" id="purchasePopup">
+    <div class="popup-overlay" id="purchasePopup" role="dialog" aria-modal="true" aria-labelledby="popupCharacterName">
         <div class="popup">
             <div class="popup-title" id="popupCharacterName">CHARACTER PACK</div>
             <div class="popup-subtitle" id="popupSubtitle">12 weather icons included</div>
@@ -957,8 +999,8 @@
             <div class="popup-text">Unlock this character pack to use it in your weather display.</div>
             <div class="popup-price" id="popupPrice">$2 <span>USD</span></div>
             <div class="popup-buttons">
-                <button class="popup-btn popup-btn-cancel" onclick="closePopup()">CANCEL</button>
-                <button class="popup-btn popup-btn-buy" onclick="purchaseCharacter()">BUY NOW</button>
+                <button type="button" class="popup-btn popup-btn-cancel" onclick="closePopup()" aria-label="Cancel purchase">CANCEL</button>
+                <button type="button" class="popup-btn popup-btn-buy" onclick="purchaseCharacter()" aria-label="Buy character pack">BUY NOW</button>
             </div>
         </div>
     </div>
