@@ -11,17 +11,17 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Grumpy Weather - Check the weather with attitude. Sarcastic weather forecasts with fun characters.">
+    <meta name="description" content="Grumpy Weather — the weather app with attitude. Get hilariously sarcastic forecasts, unlock grumpy characters, and finally have a reason to complain about the weather.">
     <meta name="theme-color" content="#1a1a2e">
     <meta property="og:title" content="Grumpy Weather - Sarcastic Weather Forecasts">
     <meta property="og:description" content="Check the weather with attitude. Sarcastic weather forecasts with fun characters.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://grumpyweather.com/">
     <meta property="og:image" content="https://grumpyweather.com/img/ic_launcher.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
+    <meta property="og:image:width" content="96">
+    <meta property="og:image:height" content="96">
     <meta property="og:site_name" content="Grumpy Weather">
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Grumpy Weather - Sarcastic Weather Forecasts">
     <meta name="twitter:description" content="Check the weather with attitude. Sarcastic weather forecasts with fun characters.">
     <meta name="twitter:image" content="https://grumpyweather.com/img/ic_launcher.png">
@@ -51,7 +51,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <title>Grumpy Weather</title>
+    <title>Grumpy Weather — Funny Sarcastic Weather Forecasts</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -838,6 +838,13 @@
     </style>
 </head>
 <body class="dark-mode">
+    <noscript>
+        <div style="text-align:center;padding:40px;font-family:sans-serif;color:#e2e8f0;background:#1a1a2e;min-height:100vh">
+            <h1>Grumpy Weather</h1>
+            <p>This app requires JavaScript to display weather data.</p>
+            <p>Please enable JavaScript in your browser settings.</p>
+        </div>
+    </noscript>
     <div class="main-container">
         <!-- Left Panel - Main Weather -->
         <div class="weather-panel">
@@ -1204,6 +1211,14 @@
             const saved = localStorage.getItem('grumpyWeatherSettings');
             if (saved) {
                 settings = { ...settings, ...JSON.parse(saved) };
+            }
+
+            // Support ?city= URL parameter for shareable links
+            const urlParams = new URLSearchParams(window.location.search);
+            const cityParam = urlParams.get('city');
+            if (cityParam) {
+                settings.location = cityParam;
+                settings.autoLocation = false;
             }
 
             document.getElementById('locationInput').value = settings.location;
