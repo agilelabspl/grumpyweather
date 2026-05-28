@@ -7,1715 +7,1440 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-9MNL4FW7WY');
+      gtag('config', 'G-9MNL4FW7WY', {
+        page_title: 'Grumpy Weather Beta Landing'
+      });
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Grumpy Weather — the weather app with attitude. Get hilariously sarcastic forecasts, unlock grumpy characters, and finally have a reason to complain about the weather.">
+    <meta name="description" content="Grumpy Weather is a mobile weather app with sarcastic forecasts, grumpy characters, and quick daily weather checks.">
     <meta name="theme-color" content="#1a1a2e">
-    <meta property="og:title" content="Grumpy Weather - Sarcastic Weather Forecasts">
-    <meta property="og:description" content="Check the weather with attitude. Sarcastic weather forecasts with fun characters.">
+    <meta property="og:title" content="Grumpy Weather - Mobile Weather App With Attitude">
+    <meta property="og:description" content="A mobile weather app that tells you the forecast and judges it a little.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://grumpyweather.com/">
     <meta property="og:image" content="https://grumpyweather.com/img/ic_launcher.png">
-    <meta property="og:image:width" content="96">
-    <meta property="og:image:height" content="96">
-    <meta property="og:site_name" content="Grumpy Weather">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Grumpy Weather - Sarcastic Weather Forecasts">
-    <meta name="twitter:description" content="Check the weather with attitude. Sarcastic weather forecasts with fun characters.">
-    <meta name="twitter:image" content="https://grumpyweather.com/img/ic_launcher.png">
-    <link rel="canonical" href="https://grumpyweather.com/">
     <link rel="icon" type="image/png" href="img/ic_launcher.png">
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "Grumpy Weather",
-        "url": "https://grumpyweather.com",
-        "description": "Sarcastic weather forecasts with attitude. Check the weather with fun characters.",
-        "applicationCategory": "WeatherApplication",
-        "operatingSystem": "Any",
-        "browserRequirements": "Requires JavaScript and HTML5",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-        },
-        "author": {
-            "@type": "Organization",
-            "name": "Grumpy Weather"
-        }
-    }
-    </script>
     <link rel="manifest" href="manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <title>Grumpy Weather — Funny Sarcastic Weather Forecasts</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <title>Grumpy Weather - Mobile Weather App With Attitude</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --ink: #ffffff;
+            --muted: rgba(255, 255, 255, 0.68);
+            --quiet: rgba(255, 255, 255, 0.12);
+            --panel: rgba(255, 255, 255, 0.08);
+            --panel-strong: rgba(255, 255, 255, 0.14);
+            --line: rgba(255, 255, 255, 0.16);
+            --night: #1a1a2e;
+            --midnight: #16213e;
+            --storm: #0f3460;
+            --blue: #4a90d9;
+            --blue-dark: #2868a9;
+            --danger: #ff6b6b;
+            --sun: #ffd166;
+            --shadow: rgba(0, 0, 0, 0.34);
+            --radius: 8px;
+            --display: 'Bebas Neue', sans-serif;
+            --body: 'Inter', sans-serif;
+        }
+
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         html {
-            height: 100%;
+            min-height: 100%;
+            background: var(--night);
         }
 
         body {
             min-height: 100%;
             overflow-x: hidden;
-            overflow-y: auto;
+            font-family: var(--body);
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 75% 18%, rgba(74, 144, 217, 0.28), transparent 28%),
+                linear-gradient(135deg, var(--night) 0%, var(--midnight) 48%, var(--storm) 100%);
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            transition: all 0.5s ease;
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
-        body.dark-mode {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            background-attachment: fixed;
-            color: #fff;
+        img {
+            display: block;
+            max-width: 100%;
         }
 
-        body.light-mode {
-            background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 50%, #e2e8f0 100%);
-            background-attachment: fixed;
-            color: #1a202c;
+        .site-shell {
+            width: min(1180px, calc(100% - 40px));
+            margin: 0 auto;
         }
 
-        /* Main Layout */
-        .main-container {
-            display: flex;
-            width: 100%;
-            min-height: 100vh;
-        }
-
-        /* Left Panel - Weather */
-        .weather-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px;
-            position: relative;
-            align-self: stretch;
-        }
-
-        .location-info {
-            position: absolute;
-            top: 40px;
-            left: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 5px;
-        }
-
-        .app-icon {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
-        }
-
-        .city-name {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 48px;
-            letter-spacing: 4px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-        }
-
-        .timestamp {
-            font-size: 18px;
-            opacity: 0.8;
-            letter-spacing: 1px;
-        }
-
-        .weather-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .weather-icon-container {
-            position: relative;
-        }
-
-        .weather-icon {
-            width: 280px;
-            height: 280px;
-            object-fit: contain;
-            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        .temp-container {
-            text-align: center;
-        }
-
-        .temp {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 140px;
-            letter-spacing: 5px;
-            line-height: 1;
-            text-shadow: 3px 3px 20px rgba(0,0,0,0.3);
-        }
-
-
-        .grumpy-text {
-            text-align: center;
-            max-width: 700px;
-            padding: 30px 50px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            animation: fadeIn 0.5s ease;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 42px;
-            letter-spacing: 3px;
-            line-height: 1.2;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .dark-mode .grumpy-text {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .light-mode .grumpy-text {
-            background: rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.1);
-            color: #1a202c;
-            text-shadow: none;
-        }
-
-        /* Right Panel - Forecast & Settings */
-        .side-panel {
-            width: 380px;
-            display: flex;
-            flex-direction: column;
-            backdrop-filter: blur(20px);
-            align-self: stretch;
-        }
-
-        .dark-mode .side-panel {
-            background: rgba(0,0,0,0.3);
-        }
-
-        .light-mode .side-panel {
-            background: rgba(0,0,0,0.03);
-        }
-
-        /* Forecast Section */
-        .forecast-section {
-            padding: 30px;
-            flex: 1;
-        }
-
-        .section-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 28px;
-            letter-spacing: 3px;
-            margin-bottom: 25px;
-            opacity: 0.9;
-        }
-
-        .forecast-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .forecast-day {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .dark-mode .forecast-day {
-            background: rgba(255,255,255,0.05);
-        }
-
-        .light-mode .forecast-day {
-            background: rgba(0,0,0,0.03);
-        }
-
-        .forecast-day:hover {
-            transform: translateX(5px);
-            background: rgba(255,255,255,0.15);
-        }
-
-        .forecast-day-name {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 24px;
-            letter-spacing: 2px;
-            width: 70px;
-        }
-
-        .forecast-icon {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            margin: 0 15px;
-        }
-
-        .forecast-temps {
-            flex: 1;
-            text-align: right;
-        }
-
-        .forecast-temp-high {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 28px;
-        }
-
-        .forecast-temp-low {
-            font-size: 16px;
-            opacity: 0.6;
-        }
-
-        /* Settings Section */
-        .settings-section {
-            padding: 30px;
-        }
-
-        .settings-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .setting-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .setting-label {
-            font-size: 14px;
-            opacity: 0.8;
-            font-weight: 600;
-        }
-
-        .setting-row input[type="text"] {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 14px;
-            width: 180px;
-            transition: all 0.3s;
-        }
-
-        .dark-mode .setting-row input[type="text"] {
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-        }
-
-        .light-mode .setting-row input[type="text"] {
-            background: rgba(0,0,0,0.05);
-            color: #1a202c;
-        }
-
-        .setting-row input[type="text"]:focus {
-            outline: none;
-            background: rgba(255,255,255,0.2);
-        }
-
-        .setting-row input[type="text"]::placeholder {
-            color: rgba(255,255,255,0.5);
-        }
-
-        .setting-row select {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .dark-mode .setting-row select {
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-        }
-
-        .light-mode .setting-row select {
-            background: rgba(0,0,0,0.05);
-            color: #1a202c;
-        }
-
-        .setting-row select:focus {
-            outline: none;
-        }
-
-        .setting-row select option {
-            background: #333;
-            color: #fff;
-        }
-
-        /* Character Selector - Main Panel */
-        .character-selector {
-            display: flex;
-            gap: 12px;
-            margin-top: 40px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .character-tile {
-            width: 75px;
-            height: 75px;
-            border-radius: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.25s ease;
-            position: relative;
-        }
-
-        .dark-mode .character-tile {
-            background: rgba(255,255,255,0.08);
-        }
-
-        .light-mode .character-tile {
-            background: rgba(0,0,0,0.05);
-        }
-
-        .character-tile:hover {
-            transform: translateY(-4px);
-        }
-
-        .dark-mode .character-tile:hover {
-            background: rgba(255,255,255,0.15);
-        }
-
-        .light-mode .character-tile:hover {
-            background: rgba(0,0,0,0.08);
-        }
-
-        .character-tile.selected {
-            transform: translateY(-4px);
-        }
-
-        .dark-mode .character-tile.selected {
-            background: rgba(255,255,255,0.2);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3), inset 0 0 0 2px rgba(255,255,255,0.3);
-        }
-
-        .light-mode .character-tile.selected {
-            background: rgba(0,0,0,0.1);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1), inset 0 0 0 2px rgba(0,0,0,0.2);
-        }
-
-        .character-tile img {
-            width: 55px;
-            height: 55px;
-            object-fit: contain;
-            transition: transform 0.2s ease;
-        }
-
-        .character-tile:hover img {
-            transform: scale(1.1);
-        }
-
-        .character-tile.selected img {
-            transform: scale(1.1);
-        }
-
-        /* All pack tile - app icon style */
-        .pack-all {
-            background: linear-gradient(145deg, #4a90d9 0%, #357abd 50%, #2868a9 100%);
-            border: none !important;
-            box-shadow: 0 4px 15px rgba(53,122,189,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
-        }
-
-        .pack-all-text {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 28px;
-            letter-spacing: 3px;
-            color: #fff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .pack-all:hover {
-            background: linear-gradient(145deg, #5a9fe8 0%, #4589cc 50%, #3878b8 100%);
-            box-shadow: 0 6px 20px rgba(53,122,189,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
-        }
-
-        .light-mode .pack-all {
-            background: linear-gradient(145deg, #4a90d9 0%, #357abd 50%, #2868a9 100%);
-        }
-
-        .pack-all:not(.locked) {
-            opacity: 0.5;
-            cursor: default;
-        }
-
-        .pack-all.locked::after {
-            display: none;
-        }
-
-        /* Popular badge */
-        .popular-badge {
-            position: absolute;
-            top: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 10px;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
-            color: #fff;
-            padding: 2px 8px;
-            border-radius: 8px;
-            white-space: nowrap;
-            box-shadow: 0 2px 8px rgba(255,100,100,0.4);
-        }
-
-        /* Locked indicator */
-        .character-tile.locked::after {
-            content: '$';
-            position: absolute;
-            bottom: 4px;
-            right: 4px;
-            font-size: 10px;
-            font-weight: bold;
-            background: rgba(0,0,0,0.5);
-            color: #fff;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Purchase Popup */
-        .popup-overlay {
+        .topbar {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .popup-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .popup {
-            background: linear-gradient(135deg, #2a2a4a 0%, #1a1a2e 100%);
-            border-radius: 24px;
-            padding: 30px;
-            max-width: 420px;
-            text-align: center;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        }
-
-        .popup-overlay.active .popup {
-            transform: scale(1);
-        }
-
-        .popup-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 32px;
-            letter-spacing: 3px;
-            margin-bottom: 8px;
-        }
-
-        .popup-subtitle {
-            font-size: 14px;
-            opacity: 0.6;
-            margin-bottom: 20px;
-        }
-
-        .popup-character-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 8px;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 16px;
-        }
-
-        .popup-character-item {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-        }
-
-        .popup-text {
-            font-size: 14px;
-            opacity: 0.8;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .popup-price {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 42px;
-            color: #4ade80;
-            margin-bottom: 20px;
-        }
-
-        .popup-price span {
-            font-size: 18px;
-            opacity: 0.7;
-        }
-
-        .popup-buttons {
-            display: flex;
-            gap: 12px;
-        }
-
-        .popup-btn {
-            flex: 1;
-            padding: 14px 24px;
-            border: none;
-            border-radius: 12px;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 18px;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .popup-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .popup-btn-cancel {
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-        }
-
-        .popup-btn-cancel:hover {
-            background: rgba(255,255,255,0.2);
-        }
-
-        .popup-btn-buy {
-            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
-            color: #000;
-            font-weight: bold;
-        }
-
-        .popup-btn-buy:hover {
-            box-shadow: 0 5px 20px rgba(74, 222, 128, 0.4);
-        }
-
-        /* Light mode popup */
-        .light-mode .popup {
-            background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
-            color: #1a202c;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-        }
-
-        .light-mode .popup-character-grid {
-            background: rgba(0,0,0,0.05);
-        }
-
-        .light-mode .popup-btn-cancel {
-            background: rgba(0,0,0,0.08);
-            color: #1a202c;
-        }
-
-        .light-mode .popup-btn-cancel:hover {
-            background: rgba(0,0,0,0.12);
-        }
-
-        /* Toggle Switch */
-        .toggle {
-            position: relative;
-            width: 50px;
-            height: 26px;
-        }
-
-        .toggle input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
+            z-index: 20;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: rgba(255,255,255,0.2);
-            transition: 0.3s;
-            border-radius: 26px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(26, 26, 46, 0.78);
+            backdrop-filter: blur(18px);
         }
 
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 20px;
-            width: 20px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: 0.3s;
-            border-radius: 50%;
-        }
-
-        .toggle input:checked + .toggle-slider {
-            background: rgba(74, 158, 255, 0.8);
-        }
-
-        .toggle input:checked + .toggle-slider:before {
-            transform: translateX(24px);
-        }
-
-        /* Update Button */
-        .btn-update {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 20px;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 10px;
-        }
-
-        .dark-mode .btn-update {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-        }
-
-        .light-mode .btn-update {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-        }
-
-        .btn-update:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-        }
-
-        /* Credits */
-        .credits {
-            text-align: center;
-            padding: 15px 15px 30px 15px;
-            font-size: 12px;
-            opacity: 0.5;
-        }
-
-        .credits a {
-            color: inherit;
-        }
-
-        /* Weather details */
-        .weather-details {
+        .topbar-inner {
+            width: min(1180px, calc(100% - 40px));
+            height: 76px;
+            margin: 0 auto;
             display: flex;
-            gap: 30px;
-            margin-top: 10px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
         }
 
-        .weather-detail {
-            text-align: center;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
         }
 
-        .weather-detail-value {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 24px;
+        .brand img {
+            width: 42px;
+            height: 42px;
+            filter: drop-shadow(0 8px 18px var(--shadow));
         }
 
-        .weather-detail-label {
-            font-size: 12px;
-            opacity: 0.6;
+        .brand-name {
+            font-family: var(--display);
+            font-size: 28px;
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .nav a {
+            transition: color 0.2s ease;
+        }
+
+        .nav a:hover {
+            color: var(--ink);
+        }
+
+        .nav-cta {
+            padding: 11px 16px;
+            border-radius: var(--radius);
+            color: var(--ink);
+            background: linear-gradient(145deg, var(--blue) 0%, #357abd 52%, var(--blue-dark) 100%);
+            box-shadow: 0 12px 30px rgba(53, 122, 189, 0.28);
+        }
+
+        .hero {
+            min-height: 94vh;
+            padding: 116px 0 54px;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 0.96fr) minmax(420px, 1.04fr);
+            align-items: center;
+            gap: 54px;
+        }
+
+        .hero-copy {
+            max-width: 600px;
+        }
+
+        .eyebrow {
+            width: fit-content;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 22px;
+            padding: 8px 11px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            color: var(--muted);
+            background: rgba(255, 255, 255, 0.06);
+            font-size: 13px;
+            font-weight: 800;
             text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .status-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--danger);
+            box-shadow: 0 0 18px rgba(255, 107, 107, 0.85);
+        }
+
+        h1 {
+            font-family: var(--display);
+            font-size: clamp(64px, 8vw, 116px);
+            line-height: 0.9;
+            letter-spacing: 2px;
+            text-shadow: 0 16px 34px rgba(0, 0, 0, 0.34);
+        }
+
+        .hero-copy p {
+            max-width: 540px;
+            margin-top: 24px;
+            color: var(--muted);
+            font-size: 19px;
+            line-height: 1.65;
+            font-weight: 500;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 32px;
+        }
+
+        .store-button {
+            min-width: 156px;
+            min-height: 52px;
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 9px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: var(--radius);
+            background: rgba(0, 0, 0, 0.36);
+            box-shadow: 0 18px 34px rgba(0, 0, 0, 0.24);
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .store-button:hover {
+            transform: translateY(-2px);
+            background: rgba(0, 0, 0, 0.48);
+        }
+
+        .store-kicker {
+            color: rgba(255, 255, 255, 0.62);
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .store-name {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .beta-card {
+            position: relative;
+            max-width: 500px;
+            width: 100%;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.92);
+            color: #1a202c;
+            box-shadow: 0 34px 90px rgba(0, 0, 0, 0.32);
+        }
+
+        .beta-section {
+            padding: 20px 0 76px;
+        }
+
+        .beta-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 0.78fr) minmax(380px, 0.72fr);
+            align-items: center;
+            gap: 42px;
+        }
+
+        .beta-copy h2 {
+            font-family: var(--display);
+            font-size: clamp(44px, 5vw, 72px);
+            line-height: 0.95;
+            letter-spacing: 2px;
+        }
+
+        .beta-copy p {
+            max-width: 560px;
+            margin-top: 16px;
+            color: var(--muted);
+            font-size: 17px;
+            line-height: 1.65;
+            font-weight: 600;
+        }
+
+        .beta-character-strip {
+            display: flex;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .beta-character-strip img {
+            width: 54px;
+            height: 54px;
+            object-fit: contain;
+            padding: 7px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .beta-card::before {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            inset: 34px -36px auto auto;
+            width: 168px;
+            height: 168px;
+            border-radius: 38px;
+            background: rgba(74, 144, 217, 0.18);
+            transform: rotate(12deg);
+        }
+
+        .beta-card-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .beta-card-title span {
+            display: block;
+            color: rgba(26, 32, 44, 0.58);
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .beta-card-title strong {
+            display: block;
+            margin-top: 4px;
+            font-family: var(--display);
+            font-size: 34px;
+            line-height: 1;
             letter-spacing: 1px;
         }
 
-        /* Loading State */
-        .loading .weather-icon {
-            animation: pulse 1.5s ease-in-out infinite;
+        .beta-mini-weather {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: var(--radius);
+            background: rgba(26, 26, 46, 0.08);
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        .beta-mini-weather img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
         }
 
-        /* Responsive */
-        @media (max-width: 900px) {
-            .main-container {
-                flex-direction: column;
+        .beta-mini-weather b {
+            display: block;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .beta-mini-weather small {
+            display: block;
+            margin-top: 2px;
+            color: rgba(26, 32, 44, 0.56);
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .beta-form {
+            display: grid;
+            gap: 15px;
+        }
+
+        .field {
+            display: grid;
+            gap: 8px;
+        }
+
+        .field label {
+            color: #1f2933;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            min-height: 50px;
+            padding: 0 16px;
+            border: 1px solid rgba(26, 32, 44, 0.16);
+            border-radius: 12px;
+            background: #fff;
+            color: #1a202c;
+            font: 700 14px var(--body);
+            outline: none;
+            transition: border 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 4px rgba(74, 144, 217, 0.18);
+        }
+
+        .field input::placeholder {
+            color: rgba(26, 32, 44, 0.46);
+        }
+
+        .beta-submit {
+            min-height: 52px;
+            margin-top: 3px;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(145deg, var(--blue) 0%, #357abd 52%, var(--blue-dark) 100%);
+            color: #fff;
+            font: 800 14px var(--body);
+            cursor: pointer;
+            box-shadow: 0 18px 34px rgba(53, 122, 189, 0.28);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .beta-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 42px rgba(53, 122, 189, 0.34);
+        }
+
+        .form-note {
+            color: rgba(26, 32, 44, 0.58);
+            font-size: 12px;
+            line-height: 1.5;
+            font-weight: 800;
+        }
+
+        .form-status {
+            min-height: 20px;
+            color: var(--blue-dark);
+            font-size: 13px;
+            line-height: 1.45;
+            font-weight: 800;
+        }
+
+        .row-success {
+            padding-top: 8px;
+        }
+
+        .ml-form-successContent h3 {
+            font-family: var(--display);
+            font-size: 38px;
+            line-height: 1;
+            letter-spacing: 1px;
+            color: #1a202c;
+        }
+
+        .ml-form-successContent p {
+            margin-top: 10px;
+            color: rgba(26, 32, 44, 0.62);
+            font-size: 14px;
+            line-height: 1.55;
+            font-weight: 800;
+        }
+
+        .metric-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 44px;
+            max-width: 560px;
+        }
+
+        .metric {
+            padding: 16px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .metric strong {
+            display: block;
+            font-family: var(--display);
+            font-size: 34px;
+            line-height: 1;
+            letter-spacing: 1px;
+        }
+
+        .metric span {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.35;
+            font-weight: 700;
+        }
+
+        .showcase {
+            position: relative;
+            min-height: 600px;
+        }
+
+        .phone-stage {
+            position: absolute;
+            inset: 0 0 0 auto;
+            width: min(100%, 620px);
+            min-height: 600px;
+            display: grid;
+            place-items: center;
+        }
+
+        .weather-card {
+            position: absolute;
+            left: 0;
+            top: 52px;
+            width: 254px;
+            padding: 20px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 24px 56px rgba(0, 0, 0, 0.26);
+            animation: drift-left 6s ease-in-out infinite;
+        }
+
+        .weather-card h2 {
+            font-family: var(--display);
+            font-size: 36px;
+            letter-spacing: 2px;
+            line-height: 1;
+        }
+
+        .weather-card p {
+            margin-top: 9px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        .tiny-forecast {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 9px;
+            margin-top: 18px;
+        }
+
+        .tiny-day {
+            min-height: 74px;
+            padding: 9px;
+            border-radius: var(--radius);
+            background: rgba(0, 0, 0, 0.22);
+            text-align: center;
+        }
+
+        .tiny-day img {
+            width: 34px;
+            height: 34px;
+            object-fit: contain;
+            margin: 0 auto 5px;
+        }
+
+        .tiny-day span {
+            display: block;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .phone-wrap {
+            position: relative;
+            width: min(340px, 72vw);
+            aspect-ratio: 0.49;
+            border-radius: 42px;
+            padding: 12px;
+            background: linear-gradient(145deg, #0c0d16 0%, #30354d 100%);
+            box-shadow:
+                0 34px 80px rgba(0, 0, 0, 0.42),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+            transform: rotate(5deg);
+        }
+
+        .phone-screen {
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 32px;
+            background:
+                radial-gradient(circle at 70% 18%, rgba(255, 209, 102, 0.18), transparent 28%),
+                linear-gradient(160deg, #1a1a2e 0%, #16213e 54%, #0f3460 100%);
+        }
+
+        .phone-notch {
+            position: absolute;
+            z-index: 4;
+            top: 10px;
+            left: 50%;
+            width: 112px;
+            height: 24px;
+            transform: translateX(-50%);
+            border-radius: 0 0 14px 14px;
+            background: #0b0c13;
+        }
+
+        .app-ui {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            padding: 52px 22px 24px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .app-location {
+            min-width: 0;
+        }
+
+        .app-location span {
+            display: block;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .app-location strong {
+            display: block;
+            margin-top: 4px;
+            font-family: var(--display);
+            font-size: 32px;
+            line-height: 1;
+            letter-spacing: 2px;
+        }
+
+        .mini-icon {
+            flex: 0 0 auto;
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.26);
+        }
+
+        .main-weather {
+            margin-top: 28px;
+            text-align: center;
+        }
+
+        .main-weather img {
+            width: min(220px, 76%);
+            height: auto;
+            margin: 0 auto;
+            filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.34));
+            animation: character-float 4s ease-in-out infinite;
+        }
+
+        .temperature {
+            margin-top: -6px;
+            font-family: var(--display);
+            font-size: 104px;
+            line-height: 0.92;
+            letter-spacing: 2px;
+        }
+
+        .complaint {
+            width: 100%;
+            margin-top: 14px;
+            padding: 15px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.09);
+            color: rgba(255, 255, 255, 0.88);
+            font-family: var(--display);
+            font-size: 24px;
+            line-height: 1.08;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .phone-forecast {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 9px;
+            margin-top: auto;
+        }
+
+        .forecast-pill {
+            min-height: 88px;
+            padding: 9px;
+            border-radius: var(--radius);
+            background: rgba(0, 0, 0, 0.22);
+            text-align: center;
+        }
+
+        .forecast-pill img {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+            margin: 0 auto 6px;
+        }
+
+        .forecast-pill strong {
+            display: block;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .forecast-pill span {
+            display: block;
+            margin-top: 2px;
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .character-rack {
+            position: absolute;
+            right: 0;
+            bottom: 58px;
+            width: 270px;
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 24px 56px rgba(0, 0, 0, 0.26);
+            animation: drift-right 5.5s ease-in-out infinite;
+        }
+
+        .rack-title {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .rack-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .rack-grid img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            padding: 5px;
+            border-radius: var(--radius);
+            background: rgba(0, 0, 0, 0.24);
+        }
+
+        .below-fold {
+            padding: 18px 0 80px;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 28px;
+            margin-bottom: 24px;
+        }
+
+        .section-head h2 {
+            font-family: var(--display);
+            font-size: clamp(46px, 6vw, 76px);
+            line-height: 0.95;
+            letter-spacing: 2px;
+        }
+
+        .section-head p {
+            max-width: 440px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .feature {
+            min-height: 230px;
+            padding: 22px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .feature img {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 24px;
+            filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.24));
+        }
+
+        .feature h3 {
+            font-family: var(--display);
+            font-size: 34px;
+            line-height: 1;
+            letter-spacing: 1px;
+        }
+
+        .feature p {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.58;
+            font-weight: 600;
+        }
+
+        .download-band {
+            padding: 70px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.16);
+        }
+
+        .download-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 28px;
+        }
+
+        .download-inner h2 {
+            font-family: var(--display);
+            font-size: clamp(44px, 5vw, 70px);
+            line-height: 0.95;
+            letter-spacing: 2px;
+        }
+
+        .download-inner p {
+            max-width: 480px;
+            margin-top: 12px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        .footer {
+            padding: 28px 0;
+            color: rgba(255, 255, 255, 0.46);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        @keyframes character-float {
+            0%, 100% {
+                transform: translateY(0) rotate(-1deg);
+            }
+            50% {
+                transform: translateY(-12px) rotate(1deg);
+            }
+        }
+
+        @keyframes drift-left {
+            0%, 100% {
+                transform: translateY(0) rotate(-3deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(-1deg);
+            }
+        }
+
+        @keyframes drift-right {
+            0%, 100% {
+                transform: translateY(0) rotate(2deg);
+            }
+            50% {
+                transform: translateY(9px) rotate(0deg);
+            }
+        }
+
+        @media (max-width: 980px) {
+            .topbar-inner {
+                height: 68px;
             }
 
-            .weather-panel {
-                padding: 20px;
+            .nav {
+                display: none;
             }
 
-            .location-info {
+            .hero {
+                padding-top: 98px;
+                min-height: auto;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 38px;
+            }
+
+            .hero-copy {
+                max-width: none;
+            }
+
+            .beta-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .beta-card {
+                max-width: none;
+            }
+
+            .showcase {
+                min-height: 560px;
+            }
+
+            .phone-stage {
                 position: relative;
-                top: 0;
-                left: 0;
-                text-align: center;
-                margin-bottom: 20px;
-            }
-
-            .city-name {
-                font-size: 36px;
-            }
-
-            .weather-icon {
-                width: 180px;
-                height: 180px;
-            }
-
-            .temp {
-                font-size: 80px;
-            }
-
-            .grumpy-text {
-                font-size: 28px;
-                padding: 20px 30px;
-            }
-
-            .side-panel {
                 width: 100%;
+                min-height: 560px;
             }
 
-            .forecast-list {
-                flex-direction: row;
-                overflow-x: auto;
+            .weather-card {
+                left: 0;
+                top: 18px;
+                width: min(254px, 48vw);
             }
 
-            .forecast-day {
+            .character-rack {
+                right: 0;
+                bottom: 32px;
+                width: min(270px, 52vw);
+            }
+
+            .section-head,
+            .download-inner {
+                display: block;
+            }
+
+            .section-head p,
+            .download-inner p {
+                margin-top: 12px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .site-shell,
+            .topbar-inner {
+                width: min(100% - 28px, 1180px);
+            }
+
+            .brand-name {
+                font-size: 24px;
+            }
+
+            .hero {
+                padding-bottom: 30px;
+            }
+
+            h1 {
+                font-size: 62px;
+            }
+
+            .hero-copy p {
+                font-size: 16px;
+            }
+
+            .actions {
+                align-items: stretch;
+            }
+
+            .store-button {
+                flex: 1 1 145px;
+                min-width: 0;
+            }
+
+            .metric-strip {
+                grid-template-columns: 1fr;
+                margin-top: 28px;
+            }
+
+            .beta-card {
+                padding: 20px;
+                border-radius: 22px;
+            }
+
+            .beta-card-head {
+                align-items: flex-start;
                 flex-direction: column;
-                min-width: 100px;
-                text-align: center;
             }
 
-            .forecast-temps {
-                text-align: center;
+            .showcase {
+                min-height: 580px;
+            }
+
+            .phone-stage {
+                min-height: 580px;
+            }
+
+            .phone-wrap {
+                width: min(284px, 78vw);
+                transform: rotate(3deg);
+            }
+
+            .weather-card {
+                top: 0;
+                width: 182px;
+                padding: 14px;
+            }
+
+            .weather-card h2 {
+                font-size: 28px;
+            }
+
+            .weather-card p {
+                display: none;
+            }
+
+            .tiny-forecast {
+                gap: 6px;
+            }
+
+            .tiny-day {
+                min-height: 58px;
+                padding: 6px;
+            }
+
+            .tiny-day img {
+                width: 28px;
+                height: 28px;
+            }
+
+            .character-rack {
+                width: 196px;
+                bottom: 0;
+                padding: 11px;
+            }
+
+            .rack-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 6px;
+            }
+
+            .rack-grid img {
+                width: 34px;
+                height: 34px;
+                padding: 4px;
+            }
+
+            .app-ui {
+                padding: 48px 17px 18px;
+            }
+
+            .app-location strong {
+                font-size: 28px;
+            }
+
+            .temperature {
+                font-size: 82px;
+            }
+
+            .complaint {
+                font-size: 20px;
+            }
+
+            .phone-forecast {
+                gap: 6px;
+            }
+
+            .forecast-pill {
+                min-height: 78px;
+                padding: 7px;
+            }
+
+            .forecast-pill img {
+                width: 32px;
+                height: 32px;
+            }
+
+            .below-fold {
+                padding-bottom: 54px;
+            }
+
+            .download-band {
+                padding: 50px 0;
             }
         }
     </style>
 </head>
-<body class="dark-mode">
-    <noscript>
-        <div style="text-align:center;padding:40px;font-family:sans-serif;color:#e2e8f0;background:#1a1a2e;min-height:100vh">
-            <h1>Grumpy Weather</h1>
-            <p>This app requires JavaScript to display weather data.</p>
-            <p>Please enable JavaScript in your browser settings.</p>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="#top" aria-label="Grumpy Weather home">
+                <img src="img/ic_launcher.png" alt="">
+                <span class="brand-name">Grumpy Weather</span>
+            </a>
+            <nav class="nav" aria-label="Primary navigation">
+                <a class="nav-cta" href="#download">Join beta</a>
+            </nav>
         </div>
-    </noscript>
-    <div class="main-container">
-        <!-- Left Panel - Main Weather -->
-        <div class="weather-panel">
-            <div class="location-info">
-                <img class="app-icon" src="img/ic_launcher.png" alt="Grumpy Weather">
-                <h1 class="city-name" id="cityName">LOADING...</h1>
-                <div class="timestamp" id="timestamp">--:--</div>
-            </div>
+    </header>
 
-            <div class="weather-content">
-                <div class="weather-icon-container">
-                    <img class="weather-icon" id="weatherIcon" src="img/grumpy_1.png" alt="Weather" width="280" height="280" onerror="this.style.opacity='0.3'">
-                </div>
-
-                <div class="temp-container">
-                    <div class="temp" id="temp">--°</div>
-                </div>
-
-                <div class="weather-details">
-                    <div class="weather-detail">
-                        <div class="weather-detail-value" id="humidity">--%</div>
-                        <div class="weather-detail-label">Humidity</div>
-                    </div>
-                    <div class="weather-detail">
-                        <div class="weather-detail-value" id="wind">-- km/h</div>
-                        <div class="weather-detail-label">Wind</div>
-                    </div>
-                    <div class="weather-detail">
-                        <div class="weather-detail-value" id="pressure">-- hPa</div>
-                        <div class="weather-detail-label">Pressure</div>
-                    </div>
-                </div>
-
-                <div class="grumpy-text" id="grumpyText">
-                    LOADING...
-                </div>
-
-                <div class="character-selector">
-                    <div class="character-tile" data-character="white">
-                        <img src="img/white_i801.png" alt="White character" width="55" height="55" loading="lazy">
-                    </div>
-                    <div class="character-tile" data-character="black">
-                        <img src="img/black_i801.png" alt="Black character" width="55" height="55" loading="lazy">
-                    </div>
-                    <div class="character-tile selected" data-character="grumpy">
-                        <img src="img/grumpy_1.png" alt="Grumpy cat character" width="55" height="55" loading="lazy">
-                    </div>
-                    <div class="character-tile locked" data-character="blob">
-                        <img src="img/blob_1.png" alt="Blob character" width="55" height="55" loading="lazy">
-                    </div>
-                    <div class="character-tile locked" data-character="brian">
-                        <img src="img/brian_1.png" alt="Brian character" width="55" height="55" loading="lazy">
-                    </div>
-                    <div class="character-tile locked" data-character="bunny">
-                        <img src="img/bunny_1.png" alt="Bunny character" width="55" height="55" loading="lazy">
-                    </div>
-                    <div class="character-tile locked" data-character="fred">
-                        <img src="img/fred_1.png" alt="Fred character" width="55" height="55" loading="lazy">
-                    </div>
-                    <div class="character-tile locked popular" data-character="grimmy">
-                        <img src="img/grimmy_1.png" alt="Grimmy reaper character" width="55" height="55" loading="lazy">
-                        <span class="popular-badge">★ HOT</span>
-                    </div>
-                    <div class="character-tile locked" data-character="marvin">
-                        <img src="img/marvin_1.png" alt="Marvin yeti character" width="55" height="55" loading="lazy">
-                    </div>
-                    <div class="character-tile locked" data-character="steve">
-                        <img src="img/steve_1.png" alt="Steve dinosaur character" width="55" height="55" loading="lazy">
-                    </div>
-                    <div class="character-tile locked pack-all" data-character="all">
-                        <span class="pack-all-text">ALL</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Right Panel - Forecast & Settings -->
-        <div class="side-panel">
-            <div class="forecast-section">
-                <div class="section-title">3-DAY FORECAST</div>
-                <div class="forecast-list">
-                    <div class="forecast-day">
-                        <div class="forecast-day-name" id="day1">--</div>
-                        <img class="forecast-icon" id="icon1" src="img/grumpy_1.png" alt="Weather forecast day 1" width="50" height="50" loading="lazy" onerror="this.style.opacity='0.3'">
-                        <div class="forecast-temps">
-                            <div class="forecast-temp-high" id="temp1">--°</div>
-                            <div class="forecast-temp-low" id="temp1n">--°</div>
+    <main id="top">
+        <section class="hero">
+            <div class="site-shell hero-grid">
+                <div class="hero-copy">
+                    <div class="eyebrow"><span class="status-dot"></span> Private beta opening soon</div>
+                    <h1>Weather forecasts that complain back.</h1>
+                    <p>Check the weather. Grumpy forecasts, weird little characters, and one more reason to blame the sky for your plans.</p>
+                    <div class="metric-strip" aria-label="App highlights">
+                        <div class="metric">
+                            <strong>3</strong>
+                            <span>day glance forecast</span>
+                        </div>
+                        <div class="metric">
+                            <strong>1</strong>
+                            <span>grumpy message about actual weather</span>
+                        </div>
+                        <div class="metric">
+                            <strong>8</strong>
+                            <span>characters to support your daily grumpy mood</span>
                         </div>
                     </div>
-                    <div class="forecast-day">
-                        <div class="forecast-day-name" id="day2">--</div>
-                        <img class="forecast-icon" id="icon2" src="img/grumpy_1.png" alt="Weather forecast day 2" width="50" height="50" loading="lazy" onerror="this.style.opacity='0.3'">
-                        <div class="forecast-temps">
-                            <div class="forecast-temp-high" id="temp2">--°</div>
-                            <div class="forecast-temp-low" id="temp2n">--°</div>
+                </div>
+
+                <div class="showcase" aria-label="Mobile app preview">
+                    <div class="phone-stage">
+                        <div class="weather-card" aria-hidden="true">
+                            <h2>Rain. Again.</h2>
+                            <p>Current conditions, short forecast, and exactly the amount of optimism this weather deserves.</p>
+                            <div class="tiny-forecast">
+                                <div class="tiny-day">
+                                    <img src="img/grumpy_5.png" alt="">
+                                    <span>Mon</span>
+                                </div>
+                                <div class="tiny-day">
+                                    <img src="img/grimmy_10.png" alt="">
+                                    <span>Tue</span>
+                                </div>
+                                <div class="tiny-day">
+                                    <img src="img/bunny_4.png" alt="">
+                                    <span>Wed</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="forecast-day">
-                        <div class="forecast-day-name" id="day3">--</div>
-                        <img class="forecast-icon" id="icon3" src="img/grumpy_1.png" alt="Weather forecast day 3" width="50" height="50" loading="lazy" onerror="this.style.opacity='0.3'">
-                        <div class="forecast-temps">
-                            <div class="forecast-temp-high" id="temp3">--°</div>
-                            <div class="forecast-temp-low" id="temp3n">--°</div>
+
+                        <div class="phone-wrap">
+                            <div class="phone-screen">
+                                <div class="phone-notch"></div>
+                                <div class="app-ui">
+                                    <div class="app-top">
+                                        <div class="app-location">
+                                            <span>Now in Warsaw</span>
+                                            <strong>Cloudy</strong>
+                                        </div>
+                                        <img class="mini-icon" src="img/ic_launcher.png" alt="">
+                                    </div>
+                                    <div class="main-weather">
+                                        <img id="heroCharacter" src="img/grimmy_11.png" alt="Grumpy Weather character">
+                                        <div class="temperature">14°</div>
+                                    </div>
+                                    <div class="complaint" id="complaint">Perfect weather for cancelling plans.</div>
+                                    <div class="phone-forecast">
+                                        <div class="forecast-pill">
+                                            <img id="forecastIcon1" src="img/grimmy_11.png" alt="">
+                                            <strong>Fri</strong>
+                                            <span>12 / 8</span>
+                                        </div>
+                                        <div class="forecast-pill">
+                                            <img id="forecastIcon2" src="img/grimmy_5.png" alt="">
+                                            <strong>Sat</strong>
+                                            <span>10 / 6</span>
+                                        </div>
+                                        <div class="forecast-pill">
+                                            <img id="forecastIcon3" src="img/grimmy_3.png" alt="">
+                                            <strong>Sun</strong>
+                                            <span>9 / 4</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="character-rack" id="characters" aria-hidden="true">
+                            <div class="rack-title">Choose your pessimist</div>
+                            <div class="rack-grid">
+                                <img src="img/grumpy_1.png" alt="">
+                                <img src="img/grimmy_1.png" alt="">
+                                <img src="img/bunny_1.png" alt="">
+                                <img src="img/blob_1.png" alt="">
+                                <img src="img/brian_1.png" alt="">
+                                <img src="img/fred_1.png" alt="">
+                                <img src="img/marvin_1.png" alt="">
+                                <img src="img/steve_1.png" alt="">
+                                <img src="img/white_i801.png" alt="">
+                                <img src="img/black_i801.png" alt="">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="settings-section">
-                <div class="section-title">SETTINGS</div>
-                <div class="settings-grid">
-                    <div class="setting-row">
-                        <span class="setting-label">Auto Location</span>
-                        <label class="toggle" aria-label="Auto location toggle">
-                            <input type="checkbox" id="autoLocation" checked aria-label="Enable automatic location detection">
-                            <span class="toggle-slider"></span>
-                        </label>
+        <section class="beta-section" id="download">
+            <div class="site-shell beta-layout">
+                <div class="beta-copy">
+                    <h2>Don't be the last one, as usual.</h2>
+                    <p>Be early for once. I am building an app for people who want to know what the weather is. Leave your name and email. I will reach out when the next testing wave opens. Or I won't.</p>
+                    <div class="beta-character-strip" aria-hidden="true">
+                        <img src="img/grumpy_1.png" alt="">
+                        <img src="img/grimmy_1.png" alt="">
+                        <img src="img/bunny_1.png" alt="">
+                        <img src="img/blob_1.png" alt="">
+                        <img src="img/brian_1.png" alt="">
+                        <img src="img/fred_1.png" alt="">
+                        <img src="img/marvin_1.png" alt="">
+                        <img src="img/steve_1.png" alt="">
+                        <img src="img/white_i801.png" alt="">
                     </div>
+                </div>
 
-                    <div class="setting-row" id="manualLocationRow" style="display: none;">
-                        <span class="setting-label">City</span>
-                        <input type="text" id="locationInput" placeholder="Warsaw, PL">
+                <div id="mlb2-41889202" class="beta-card ml-form-embedContainer ml-subscribe-form ml-subscribe-form-41889202" aria-label="Beta signup form">
+                    <div class="beta-card-head">
+                        <div class="beta-card-title">
+                            <span>Beta signup</span>
+                            <strong>Early access list</strong>
+                        </div>
+                        <div class="beta-mini-weather" aria-hidden="true">
+                            <img src="img/grimmy_1.png" alt="">
+                            <div>
+                                <b>14°</b>
+                                <small>cloudy</small>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="setting-row">
-                        <span class="setting-label">Units</span>
-                        <select id="units">
-                            <option value="metric">Celsius</option>
-                            <option value="imperial">Fahrenheit</option>
-                        </select>
+                    <div class="row-form">
+                        <form class="beta-form ml-block-form" id="betaForm" action="https://assets.mailerlite.com/jsonp/575409/forms/188717064180991705/subscribe" data-code="" method="post">
+                            <div class="field ml-form-fieldRow">
+                                <label for="betaName">Name</label>
+                                <input id="betaName" name="fields[name]" type="text" autocomplete="given-name" placeholder="Your name" required>
+                            </div>
+                            <div class="field ml-form-fieldRow">
+                                <label for="betaEmail">Email</label>
+                                <input id="betaEmail" name="fields[email]" type="email" autocomplete="email" placeholder="you@email.com" required>
+                            </div>
+                            <div class="field ml-form-fieldRow ml-last-item">
+                                <label for="betaSystem">System</label>
+                                <select id="betaSystem" name="fields[last_name]" required>
+                                    <option value="">Choose your misery device</option>
+                                    <option value="iOS">iOS</option>
+                                    <option value="Android">Android</option>
+                                </select>
+                            </div>
+                            <input type="hidden" name="ml-submit" value="1">
+                            <button class="beta-submit primary" type="submit">Join the beta</button>
+                            <input type="hidden" name="anticsrf" value="true">
+                            <p class="form-note">Rather no spam.</p>
+                        </form>
                     </div>
-
-                    <div class="setting-row">
-                        <span class="setting-label">Theme</span>
-                        <select id="theme">
-                            <option value="dark">Dark</option>
-                            <option value="light">Light</option>
-                        </select>
+                    <div class="row-success" style="display: none">
+                        <div class="ml-form-successContent">
+                            <h3>You're on the list.</h3>
+                            <p>Try not to act surprised if the weather still disappoints you.</p>
+                        </div>
                     </div>
-
-                    <button type="button" class="btn-update" onclick="updateWeather()" aria-label="Refresh weather data">REFRESH</button>
                 </div>
             </div>
+        </section>
 
-            <div class="credits">
-                Powered by <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a>
+        <section class="download-band">
+            <div class="site-shell download-inner">
+                <div>
+                    <h2>Weather is bad. The app is not.</h2>
+                </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
-    <!-- Purchase Popup -->
-    <div class="popup-overlay" id="purchasePopup" role="dialog" aria-modal="true" aria-labelledby="popupCharacterName">
-        <div class="popup">
-            <div class="popup-title" id="popupCharacterName">CHARACTER PACK</div>
-            <div class="popup-subtitle" id="popupSubtitle">12 weather icons included</div>
-            <div class="popup-character-grid" id="popupCharacterGrid">
-                <!-- Icons will be inserted here by JS -->
-            </div>
-            <div class="popup-text">Unlock this character pack to use it in your weather display.</div>
-            <div class="popup-price" id="popupPrice">$2 <span>USD</span></div>
-            <div class="popup-buttons">
-                <button type="button" class="popup-btn popup-btn-cancel" onclick="closePopup()" aria-label="Cancel purchase">CANCEL</button>
-                <button type="button" class="popup-btn popup-btn-buy" onclick="purchaseCharacter()" aria-label="Buy character pack">BUY NOW</button>
-            </div>
-        </div>
-    </div>
+    <footer class="footer">
+        <div class="site-shell">Grumpy Weather. Forecasts with attitude.</div>
+    </footer>
 
     <script>
-        const API_KEY = '258a22ab3066f55cb77b8e2781346ff6';
-        const API_BASE = 'https://api.openweathermap.org/data/2.5/';
-
-        // Grumpy texts by ID
-        const grumpyTextsById = {
-            1: "YOUR MOTHER PAID THE BILLS SO TURN ON YOUR FUCKING INTERNET",
-            2: "I HATE YOU. GET LOST",
-            3: "I DON'T KNOW WHAT THE FUCK IS GOING ON, BUT SOMETHING WENT WRONG.",
-            4: "FUCKING FARTS IN THE SKY",
-            5: "GREAT, GOD FARTS AND FUCKING RAIN",
-            6: "ZEUS, GO FUCK YOURSELF",
-            7: "THUNDERSTORM STRAIGHT FROM THE FUCKING HELL",
-            8: "NOW THIS IS A FUCKING STORM!",
-            10: "FUCKING PETITE SHIT-RAINING WEATHER",
-            11: "ARE YOU CALLING THIS SHIT A RAIN?",
-            12: "GET YOUR SHIT TOGETHER! IT IS NOT A RAIN.",
-            13: "SHITTY RAIN AS ALWAYS",
-            14: "RAIN FOR FUCKING PUSSIES",
-            15: "GET YOUR SHIT TOGETHER. IT'S JUST RAIN",
-            16: "WHY THE FUCK MUST IT RAIN RIGHT NOW?",
-            17: "NOW THIS IS FUCKING RAIN!",
-            18: "RAINING AS FUCK",
-            19: "C'MON, IT'S LIKE SNOW FOR PUSSIES",
-            20: "WHITE SHIT FALLING FROM THE SKY",
-            21: "WHITE WET CRAP... FUCKING GREAT",
-            22: "BLIZZARD LIKE FUCK",
-            23: "I'VE GOT ENOUGH OF THIS WHITE CRAP",
-            24: "CAN'T SEE A DAMN THING",
-            25: "FUCKING BLINDMAN WALK",
-            26: "DAMN AIR TRIES TO FUCKING KILL ME!",
-            27: "FUCKING GREY LIKE MY LIFE",
-            28: "COLORS OF MY FUCKING LIFE. GREY AND MORE GREY",
-            29: "IT'S GREY OUTSIDE... WONDERFUL",
-            30: "FOG FOR PUSSIES",
-            31: "FUCKING 50 SHADES OF GREY",
-            32: "WORLD TELLS ME THAT TODAY WILL BE A BAD DAY",
-            33: "RUN FOR YOUR FUCKING LIFE!",
-            34: "FUCKINGS COWS FLYING LOW!",
-            35: "A LITTLE WINDY DON'T YOU THINK?",
-            37: "WHERE THE HELL ARE WE? ON NORTH POLE?",
-            40: "I AM MELTING FOR GODS SAKE!",
-            42: "FUCKING WIND ALWAYS IN THE FACE",
-            43: "FUCKING SNOW BOMBS FALLING RIGHT AT YOU!",
-            44: "I'M IN FUCKING FREEZER OR WHAT?",
-            45: "I FUCKING LOVE HAVING SAND IN MY EYES",
-            46: "I DON'T KNOW WHERE THE HELL I AM. TURN ON FUCKING LOCATION ACCESS.",
-            47: "THUNDERSTORM FOR PUSSIES",
-            48: "ARE YOU LOST AGAIN? TURN THE FUCKING LOCATION ACCESS",
-            49: "ARE YOU FUCKING KIDDING ME? HOW CAN I WORK WITHOUT FUCKING INTERNET?",
-            50: "I QUIT THIS FUCKING JOB",
-            51: "IT IS NOT MY FUCKING FAULT THAT THE WEATHER IS FUCKED UP!",
-            52: "WHAT ARE YOU LOOKING AT? EVERYBODY CAN HAVE FUCKING ERRORS!",
-            53: "FUCK LIGHTNINGS, I AM OUT OF HERE",
-            54: "THUNDERSTORM COMING THIS FUCKING WAY",
-            55: "WHOS IDEA WAS TO PUT FUCKING LIGHTNINGS IN THE FUCKING SKY?",
-            56: "THUNDERSTORM STRAIGHT FROM THE FUCKING ASS",
-            57: "IS IT RAINING OR JUST FUCKING WITH ME?",
-            58: "TODAY IS \"GET FUCKED UP BY RAIN\" DAY",
-            59: "IS IT FUCKING RAINING OR WHAT?",
-            60: "I FUCKING LOVE BEING FUCKED UP BY RAIN...",
-            61: "WHITE SHIT IS EVERYWHERE...",
-            62: "WHITE SHIT AND WET CRAP TOGETHER. MY BELOVED CONNECTION...",
-            63: "FUCKING NORTH POLE WELCOMES YOU",
-            64: "GREY ESSENCE OF MY LIFE",
-            65: "I FUCKING LOVE HAVING SAND IN MY EYES",
-            66: "A LITTLE FUCKING WINDY DON'T YOU THINK?",
-            67: "TURNING ON LOCATION ACCESS WOULD FUCKING HELP ME, YOU KNOW?",
-            68: "TURNING ON FUCKING INTERNET WOULD HELP ME, YOU KNOW?",
-            69: "I'VE LOST FUCKING CONNECTION, SO GIVE ME A BREAK.",
-            70: "ERRORS, ERRORS, EVERYWHERE FUCKING ERRORS.",
-            72: "SUN IS TOO FUCKING BRIGHT FOR MY EYEBALLS",
-            74: "LEAVE ME ALONE AND ENJOY YOUR FUCKING WEATHER. I'LL PASS.",
-            75: "I THOUGHT THAT WEATHER COULDN'T BE MORE MISERABLE. THIS PROVED ME WRONG.",
-            76: "DO YOU KNOW WHAT IS GREAT ABOUT THIS WEATHER? FUCKING NOTHING",
-            77: "IT IS A GOOD DAY FOR APOCALYPSE TO START",
-            78: "YEAH, ONE MORE DAY CLOSER TO DEATH",
-            79: "WE WILL DIE IN 100M YEARS ANYWAY",
-            80: "I SAW NICE WEATHER ONCE. IT WAS AWFUL",
-            81: "DARE TO SMILE? DON'T FORGET THAT TOMORROW IT WILL BE FUCKING WORSE.",
-            82: "ENJOY WEATHER WHILE YOU CAN. TOMORROW IT WILL BE WORSE.",
-            83: "WHAT IS THE WEATHER LIKE? WHO FUCKING CARES?"
-        };
-
-        // Grumpy text IDs for different weather conditions (from arrays.xml)
-        const grumpyTextIds = {
-            // Errors
-            1100: [46, 48, 67],
-            1200: [1, 49, 68, 83],
-            1300: [2, 50, 51, 69],
-            1400: [3, 52, 70],
-
-            // Thunderstorm (200s)
-            200: [5, 6, 8],
-            201: [5, 47],
-            202: [5, 8],
-            210: [4, 54, 55, 47],
-            211: [6, 53, 55],
-            212: [8, 55, 56],
-            221: [7, 56, 8],
-            230: [47, 5],
-            231: [47, 5],
-            232: [47, 5],
-
-            // Drizzle (300s)
-            300: [10, 11, 12, 13, 57],
-            301: [10, 11, 12, 13, 57],
-            302: [10, 11, 12, 13, 57],
-            310: [10, 11, 12, 13, 57],
-            311: [10, 11, 12, 13, 57],
-            312: [10, 11, 12, 13, 57],
-            321: [10, 11, 12, 13, 57],
-
-            // Rain (500s)
-            500: [14, 15, 59],
-            501: [15, 58, 16],
-            502: [16, 17, 18, 60],
-            503: [16, 17, 18, 60],
-            504: [16, 17, 18, 60],
-            511: [44, 18, 60],
-            520: [14, 15, 58, 16],
-            521: [15, 58, 16],
-            522: [17, 16, 18, 60, 58],
-
-            // Snow (600s)
-            600: [19, 20],
-            601: [20, 61, 23],
-            602: [22, 61, 20, 23],
-            611: [21, 62],
-            621: [23, 63, 22],
-
-            // Atmosphere (700s)
-            701: [24, 64, 25],
-            711: [26],
-            721: [30],
-            731: [45],
-            741: [24, 64, 25],
-
-            // Clear/Clouds (800s)
-            800: [32, 72, 74, 75, 76, 77, 78, 79, 80, 81, 82],
-            801: [27, 28],
-            802: [29],
-            803: [28],
-            804: [31, 28],
-
-            // Extreme (900s)
-            900: [34],
-            901: [33],
-            902: [35],
-            903: [37, 44],
-            904: [40],
-            905: [42, 65, 66, 34],
-            906: [43]
-        };
-
-        const weatherIconMap = {
-            1100: 10, 1200: 10, 1300: 10, 1400: 10,
-            200: 6, 201: 6, 202: 6, 210: 6, 211: 6, 212: 6, 221: 6, 230: 6, 231: 6, 232: 6,
-            300: 5, 301: 5, 302: 5, 310: 5, 311: 5, 312: 5, 321: 5,
-            500: 5, 501: 5, 502: 5, 503: 5, 504: 5, 511: 9, 520: 5, 521: 5, 522: 5,
-            600: 3, 601: 3, 602: 3, 611: 3, 621: 3,
-            701: 7, 711: 7, 721: 7, 731: 7, 741: 7,
-            800: { day: 1, night: 2 }, 801: { day: 1, night: 2 },
-            802: 11, 803: 11, 804: 11,
-            900: 10, 901: 10, 902: 10, 903: 9, 904: 12, 905: 8, 906: 4
-        };
-
-        const defaultIconMap = {
-            1100: 'i1001', 1200: 'i1001', 1300: 'i1001', 1400: 'i1001',
-            200: 'i201', 201: 'i201', 202: 'i202', 210: 'i201', 211: 'i201', 212: 'i202',
-            221: 'i202', 230: 'i201', 231: 'i201', 232: 'i202',
-            300: 'i301', 301: 'i301', 302: 'i301', 310: 'i301', 311: 'i301', 312: 'i301', 321: 'i301',
-            500: 'i501', 501: 'i502', 502: 'i502', 503: 'i502', 504: 'i502', 511: 'i502',
-            520: 'i502', 521: 'i502', 522: 'i502',
-            600: 'i601', 601: 'i602', 602: 'i602', 611: 'i601', 621: 'i601',
-            701: { day: 'i701', night: 'i702' }, 711: { day: 'i701', night: 'i702' },
-            721: { day: 'i701', night: 'i702' }, 731: 'i703', 741: 'i703',
-            800: { day: 'i801', night: 'i802' }, 801: { day: 'i803', night: 'i804' },
-            802: 'i805', 803: 'i806', 804: 'i806',
-            900: 'i901', 901: 'i202', 902: 'i901', 903: { day: 'i801', night: 'i802' },
-            904: { day: 'i801', night: 'i802' }, 905: 'i901', 906: 'i902'
-        };
-
-        const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-
-        let settings = {
-            location: 'Warsaw,PL',
-            autoLocation: true,
-            units: 'metric',
-            theme: 'dark',
-            character: 'grumpy'
-        };
-
-        let currentCoords = null;
-
-        function loadSettings() {
-            const saved = localStorage.getItem('grumpyWeatherSettings');
-            if (saved) {
-                settings = { ...settings, ...JSON.parse(saved) };
+        const characters = [
+            {
+                src: 'img/grimmy_11.png',
+                forecast: ['img/grimmy_11.png', 'img/grimmy_5.png', 'img/grimmy_3.png'],
+                text: 'Perfect weather for cancelling plans.',
+                condition: 'Cloudy',
+                temp: '14°'
+            },
+            {
+                src: 'img/grumpy_5.png',
+                forecast: ['img/grumpy_5.png', 'img/grumpy_11.png', 'img/grumpy_3.png'],
+                text: 'Rain. Nature found the leak button.',
+                condition: 'Rain',
+                temp: '11°'
+            },
+            {
+                src: 'img/bunny_1.png',
+                forecast: ['img/bunny_1.png', 'img/bunny_10.png', 'img/bunny_12.png'],
+                text: 'Sunshine. Deeply suspicious behavior.',
+                condition: 'Sunny',
+                temp: '24°'
+            },
+            {
+                src: 'img/marvin_3.png',
+                forecast: ['img/marvin_3.png', 'img/marvin_4.png', 'img/marvin_11.png'],
+                text: 'Snow. Good luck pretending this is fun.',
+                condition: 'Snow',
+                temp: '-3°'
+            },
+            {
+                src: 'img/steve_6.png',
+                forecast: ['img/steve_6.png', 'img/steve_5.png', 'img/steve_11.png'],
+                text: 'Thunder. The sky is being dramatic.',
+                condition: 'Storm',
+                temp: '17°'
             }
+        ];
 
-            // Support ?city= URL parameter for shareable links
-            const urlParams = new URLSearchParams(window.location.search);
-            const cityParam = urlParams.get('city');
-            if (cityParam) {
-                settings.location = cityParam;
-                settings.autoLocation = false;
-            }
+        const heroCharacter = document.getElementById('heroCharacter');
+        const complaint = document.getElementById('complaint');
+        const condition = document.querySelector('.app-location strong');
+        const temperature = document.querySelector('.temperature');
+        const forecastIcons = [
+            document.getElementById('forecastIcon1'),
+            document.getElementById('forecastIcon2'),
+            document.getElementById('forecastIcon3')
+        ];
+        let activeCharacter = 0;
 
-            document.getElementById('locationInput').value = settings.location;
-            document.getElementById('autoLocation').checked = settings.autoLocation;
-            document.getElementById('units').value = settings.units;
-            document.getElementById('theme').value = settings.theme;
-
-            // Set selected character visually
-            document.querySelectorAll('.character-tile').forEach(opt => {
-                opt.classList.toggle('selected', opt.dataset.character === settings.character);
+        window.setInterval(() => {
+            activeCharacter = (activeCharacter + 1) % characters.length;
+            const next = characters[activeCharacter];
+            heroCharacter.style.opacity = '0';
+            forecastIcons.forEach((icon) => {
+                icon.style.opacity = '0';
             });
-
-            toggleManualLocation();
-            applyTheme();
-        }
-
-        function saveSettings() {
-            settings.location = document.getElementById('locationInput').value || 'Warsaw,PL';
-            settings.autoLocation = document.getElementById('autoLocation').checked;
-            settings.units = document.getElementById('units').value;
-            settings.theme = document.getElementById('theme').value;
-            // character is set via click handler
-
-            localStorage.setItem('grumpyWeatherSettings', JSON.stringify(settings));
-            applyTheme();
-        }
-
-        function applyTheme() {
-            document.body.className = settings.theme + '-mode';
-        }
-
-        function toggleManualLocation() {
-            const row = document.getElementById('manualLocationRow');
-            row.style.display = settings.autoLocation ? 'none' : 'flex';
-        }
-
-        // Character sets that use numbered icons (like grumpy_1.png)
-        const numberedCharacters = ['grumpy', 'blob', 'brian', 'bunny', 'fred', 'grimmy', 'marvin', 'steve'];
-
-        function getIcon(weatherCode, isDay = true) {
-            const character = settings.character;
-
-            if (numberedCharacters.includes(character)) {
-                let iconNum = weatherIconMap[weatherCode];
-                if (!iconNum) {
-                    const baseCode = Math.floor(weatherCode / 100) * 100;
-                    iconNum = weatherIconMap[baseCode] || 10;
-                }
-                if (typeof iconNum === 'object') {
-                    iconNum = isDay ? iconNum.day : iconNum.night;
-                }
-                return `img/${character}_${iconNum}.png`;
-            } else {
-                let iconName = defaultIconMap[weatherCode];
-                if (!iconName) {
-                    const baseCode = Math.floor(weatherCode / 100) * 100;
-                    iconName = defaultIconMap[baseCode] || 'i1001';
-                }
-                if (typeof iconName === 'object') {
-                    iconName = isDay ? iconName.day : iconName.night;
-                }
-                return `img/${character}_${iconName}.png`;
-            }
-        }
-
-        function getGrumpyText(weatherCode, temp) {
-            const isMetric = settings.units === 'metric';
-            const isHot = isMetric ? temp >= 30 : temp >= 85;
-            const isCold = isMetric ? temp <= -10 : temp <= 15;
-
-            if (weatherCode >= 800 && weatherCode < 900) {
-                if (isHot) weatherCode = 904;
-                else if (isCold) weatherCode = 903;
-            }
-
-            let textIds = grumpyTextIds[weatherCode];
-            if (!textIds) {
-                const baseCode = Math.floor(weatherCode / 100) * 100;
-                textIds = grumpyTextIds[baseCode] || grumpyTextIds[1400];
-            }
-
-            const textId = textIds[Math.floor(Math.random() * textIds.length)];
-            return grumpyTextsById[textId] || "WHAT IS THE WEATHER LIKE? WHO FUCKING CARES?";
-        }
-
-        function updateTime() {
-            const now = new Date();
-            const day = days[now.getDay()];
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            document.getElementById('timestamp').textContent = `${day} ${hours}:${minutes}`;
-        }
-
-        async function getLocationCoords() {
-            // Check if running on file:// protocol
-            if (window.location.protocol === 'file:') {
-                throw new Error('Geolocation requires HTTP server. Run: python3 -m http.server 8000');
-            }
-
-            return new Promise((resolve, reject) => {
-                if (!navigator.geolocation) {
-                    reject(new Error('Geolocation not supported'));
-                    return;
-                }
-
-                navigator.geolocation.getCurrentPosition(
-                    position => {
-                        currentCoords = {
-                            lat: position.coords.latitude,
-                            lon: position.coords.longitude
-                        };
-                        resolve(currentCoords);
-                    },
-                    error => {
-                        let msg = 'Location error';
-                        switch(error.code) {
-                            case error.PERMISSION_DENIED:
-                                msg = 'Location permission denied';
-                                break;
-                            case error.POSITION_UNAVAILABLE:
-                                msg = 'Location unavailable';
-                                break;
-                            case error.TIMEOUT:
-                                msg = 'Location request timeout';
-                                break;
-                        }
-                        reject(new Error(msg));
-                    },
-                    { timeout: 15000, enableHighAccuracy: true, maximumAge: 300000 }
-                );
-            });
-        }
-
-        async function fetchWeather(location) {
-            const unitParam = settings.units;
-            let url;
-
-            if (typeof location === 'object') {
-                url = `${API_BASE}weather?lat=${location.lat}&lon=${location.lon}&units=${unitParam}&appid=${API_KEY}`;
-            } else {
-                url = `${API_BASE}weather?q=${encodeURIComponent(location)}&units=${unitParam}&appid=${API_KEY}`;
-            }
-
-            const response = await fetch(url);
-            if (!response.ok) throw new Error('Weather data not found');
-            return response.json();
-        }
-
-        async function fetchForecast(location) {
-            const unitParam = settings.units;
-            let url;
-
-            if (typeof location === 'object') {
-                url = `${API_BASE}forecast?lat=${location.lat}&lon=${location.lon}&units=${unitParam}&appid=${API_KEY}`;
-            } else {
-                url = `${API_BASE}forecast?q=${encodeURIComponent(location)}&units=${unitParam}&appid=${API_KEY}`;
-            }
-
-            const response = await fetch(url);
-            if (!response.ok) throw new Error('Forecast data not found');
-            return response.json();
-        }
-
-        function displayWeather(data) {
-            const weatherCode = data.weather[0].id;
-            const temp = Math.round(data.main.temp);
-            const isDay = data.weather[0].icon.endsWith('d');
-            const windUnit = settings.units === 'metric' ? 'km/h' : 'mph';
-            const windSpeed = settings.units === 'metric'
-                ? Math.round(data.wind.speed * 3.6)
-                : Math.round(data.wind.speed);
-
-            document.getElementById('cityName').textContent = data.name.toUpperCase();
-            document.getElementById('temp').textContent = temp + '°';
-            document.getElementById('humidity').textContent = data.main.humidity + '%';
-            document.getElementById('wind').textContent = windSpeed + ' ' + windUnit;
-            document.getElementById('pressure').textContent = data.main.pressure + ' hPa';
-            document.getElementById('weatherIcon').src = getIcon(weatherCode, isDay);
-            document.getElementById('grumpyText').textContent = getGrumpyText(weatherCode, temp);
-
-            document.body.classList.remove('loading');
-        }
-
-        function displayForecast(data) {
-            const today = new Date().getDate();
-            const dailyData = {};
-
-            data.list.forEach(item => {
-                const date = new Date(item.dt * 1000);
-                const day = date.getDate();
-                const hour = date.getHours();
-
-                if (day === today) return;
-
-                if (!dailyData[day]) {
-                    dailyData[day] = { day: date.getDay(), temps: [], codes: [] };
-                }
-
-                dailyData[day].temps.push(item.main.temp);
-                if (hour >= 11 && hour <= 14) {
-                    dailyData[day].codes.push(item.weather[0].id);
-                }
-            });
-
-            const suffix = settings.units === 'metric' ? '°' : '°';
-            const forecasts = Object.values(dailyData).slice(0, 3);
-
-            forecasts.forEach((forecast, i) => {
-                const dayNum = i + 1;
-                const maxTemp = Math.round(Math.max(...forecast.temps));
-                const minTemp = Math.round(Math.min(...forecast.temps));
-                const weatherCode = forecast.codes[0] || 800;
-
-                document.getElementById(`day${dayNum}`).textContent = days[forecast.day];
-                document.getElementById(`temp${dayNum}`).textContent = maxTemp + suffix;
-                document.getElementById(`temp${dayNum}n`).textContent = minTemp + suffix;
-                document.getElementById(`icon${dayNum}`).src = getIcon(weatherCode, true);
-            });
-        }
-
-        function showError(code, customMessage = null) {
-            document.getElementById('cityName').textContent = 'ERROR';
-            document.getElementById('temp').textContent = '--°';
-            document.getElementById('weatherIcon').src = getIcon(code, true);
-            document.getElementById('grumpyText').textContent = getGrumpyText(code, 0);
-            document.body.classList.remove('loading');
-        }
-
-        async function updateWeather() {
-            saveSettings();
-            document.body.classList.add('loading');
-            document.getElementById('grumpyText').textContent = '...';
-
-            try {
-                let location;
-
-                if (settings.autoLocation) {
-                    try {
-                        location = await getLocationCoords();
-                    } catch (e) {
-                        console.error('Geolocation error:', e);
-                        showError(1100, e.message);
-                        return;
-                    }
-                } else {
-                    location = settings.location;
-                }
-
-                const [weatherData, forecastData] = await Promise.all([
-                    fetchWeather(location),
-                    fetchForecast(location)
-                ]);
-
-                displayWeather(weatherData);
-                displayForecast(forecastData);
-
-            } catch (error) {
-                console.error('Error:', error);
-                if (error.message.includes('not found')) {
-                    showError(1400);
-                } else {
-                    showError(1200);
-                }
-            }
-        }
-
-        // Event listeners
-        document.getElementById('theme').addEventListener('change', function() {
-            settings.theme = this.value;
-            applyTheme();
-            saveSettings();
-        });
-
-        // Free characters
-        const freeCharacters = ['white', 'black', 'grumpy'];
-        let pendingCharacter = null;
-
-        // Character display names
-        const characterNames = {
-            white: 'Default White',
-            black: 'Default Black',
-            grumpy: 'Cat the Grumpy',
-            steve: 'Steve the Dinosaur',
-            marvin: 'Marvin the Yeti',
-            fred: 'Fred the Old Geezer',
-            bunny: 'Jack the Bunny',
-            brian: 'Brian the Dead One',
-            blob: 'Blob the Slime',
-            grimmy: 'Grimmy the Reaper',
-            all: 'All Characters Pack'
-        };
-
-        // Paid characters list
-        const paidCharacters = ['blob', 'brian', 'bunny', 'fred', 'grimmy', 'marvin', 'steve'];
-
-        // Stripe links
-        const stripeLinks = {
-            all: 'https://buy.stripe.com/aFa5kv0YFfLpepL7qEfAc01',
-            grimmy: 'https://buy.stripe.com/6oU7sD0YFeHlbdz4esfAc00',
-            brian: 'https://buy.stripe.com/5kQdR1fTzar5dlHbGUfAc03',
-            bunny: 'https://buy.stripe.com/14A5kv7n36aPepLeT6fAc04',
-            fred: 'https://buy.stripe.com/eVq14f22J2YD0yV8uIfAc05',
-            marvin: 'https://buy.stripe.com/3cIcMX36NgPt2H39yMfAc06',
-            steve: 'https://buy.stripe.com/14AbIT7n3fLpepLcKYfAc07',
-            blob: 'https://buy.stripe.com/7sY14f7n356LftPeT6fAc08'
-        };
-
-        // Character tile click handler
-        document.querySelectorAll('.character-tile').forEach(tile => {
-            tile.addEventListener('click', function() {
-                const character = this.dataset.character;
-
-                // "All" pack is only for purchasing
-                if (character === 'all') {
-                    if (this.classList.contains('locked')) {
-                        showPurchasePopup('all');
-                    }
-                    return;
-                }
-
-                // Check if character is locked (paid)
-                if (!freeCharacters.includes(character) && this.classList.contains('locked')) {
-                    showPurchasePopup(character);
-                    return;
-                }
-
-                selectCharacter(character);
-            });
-        });
-
-        function selectCharacter(character) {
-            document.querySelectorAll('.character-tile').forEach(t => t.classList.remove('selected'));
-            document.querySelector(`.character-tile[data-character="${character}"]`).classList.add('selected');
-            settings.character = character;
-            saveSettings();
-            updateWeather();
-        }
-
-        function showPurchasePopup(character) {
-            pendingCharacter = character;
-
-            const grid = document.getElementById('popupCharacterGrid');
-            grid.innerHTML = '';
-
-            if (character === 'all') {
-                // Show 1 icon from each paid character (7 total)
-                paidCharacters.forEach(char => {
-                    const img = document.createElement('img');
-                    img.className = 'popup-character-item';
-                    img.src = `img/${char}_1.png`;
-                    img.alt = char;
-                    grid.appendChild(img);
+            window.setTimeout(() => {
+                heroCharacter.src = next.src;
+                complaint.textContent = next.text;
+                condition.textContent = next.condition;
+                temperature.textContent = next.temp;
+                forecastIcons.forEach((icon, index) => {
+                    icon.src = next.forecast[index];
+                    icon.style.opacity = '1';
                 });
-                document.getElementById('popupSubtitle').textContent = '7 character packs (84 icons)';
-                document.getElementById('popupPrice').innerHTML = '$10 <span>USD</span>';
-            } else {
-                // Generate grid of all 12 character variants
-                for (let i = 1; i <= 12; i++) {
-                    const img = document.createElement('img');
-                    img.className = 'popup-character-item';
-                    img.src = `img/${character}_${i}.png`;
-                    img.alt = `${character} ${i}`;
-                    grid.appendChild(img);
-                }
-                document.getElementById('popupSubtitle').textContent = '12 weather icons included';
-                document.getElementById('popupPrice').innerHTML = '$2 <span>USD</span>';
-            }
+                heroCharacter.style.opacity = '1';
+            }, 180);
+        }, 3600);
 
-            document.getElementById('popupCharacterName').textContent = (characterNames[character] || character).toUpperCase();
-            document.getElementById('purchasePopup').classList.add('active');
-        }
-
-        function closePopup() {
-            document.getElementById('purchasePopup').classList.remove('active');
-            pendingCharacter = null;
-        }
-
-        function purchaseCharacter() {
-            if (pendingCharacter && stripeLinks[pendingCharacter]) {
-                // Save pending character to localStorage so we can unlock after payment
-                localStorage.setItem('pendingPurchase', pendingCharacter);
-
-                // Redirect to Stripe - use top level to break out of iframe
-                window.top.location.href = stripeLinks[pendingCharacter];
-            }
-        }
-
-        // Reset purchases (for testing)
-        function resetPurchases() {
-            localStorage.removeItem('unlockedCharacters');
-            localStorage.removeItem('pendingPurchase');
-            location.reload();
-        }
-
-        // Check if returning from successful payment
-        function checkPendingPurchase() {
-            const pending = localStorage.getItem('pendingPurchase');
-            if (pending && window.location.search.includes('success')) {
-                let unlocked = JSON.parse(localStorage.getItem('unlockedCharacters') || '[]');
-
-                if (pending === 'all') {
-                    // Unlock all paid characters
-                    paidCharacters.forEach(char => {
-                        const tile = document.querySelector(`.character-tile[data-character="${char}"]`);
-                        if (tile) tile.classList.remove('locked');
-                        if (!unlocked.includes(char)) {
-                            unlocked.push(char);
-                        }
-                    });
-                    // Also mark 'all' tile as unlocked
-                    const allTile = document.querySelector('.character-tile[data-character="all"]');
-                    if (allTile) allTile.classList.remove('locked');
-
-                    localStorage.setItem('unlockedCharacters', JSON.stringify(unlocked));
-                    // Select first paid character
-                    selectCharacter('blob');
-                } else {
-                    // Unlock single character
-                    const tile = document.querySelector(`.character-tile[data-character="${pending}"]`);
-                    if (tile) tile.classList.remove('locked');
-
-                    if (!unlocked.includes(pending)) {
-                        unlocked.push(pending);
-                        localStorage.setItem('unlockedCharacters', JSON.stringify(unlocked));
-                    }
-
-                    selectCharacter(pending);
-                }
-
-                // Clear pending purchase
-                localStorage.removeItem('pendingPurchase');
-            }
-        }
-
-        // Close popup on overlay click
-        document.getElementById('purchasePopup').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closePopup();
-            }
-        });
-
-        // Close popup on ESC key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closePopup();
-            }
-            // Hidden reset: Ctrl+Shift+R
-            if (e.ctrlKey && e.shiftKey && e.key === 'R') {
-                e.preventDefault();
-                if (confirm('Reset all purchases?')) {
-                    resetPurchases();
-                }
-            }
-        });
-
-        // Load unlocked characters on startup
-        function loadUnlockedCharacters() {
-            const unlocked = JSON.parse(localStorage.getItem('unlockedCharacters') || '[]');
-            unlocked.forEach(char => {
-                const tile = document.querySelector(`.character-tile[data-character="${char}"]`);
-                if (tile) tile.classList.remove('locked');
+        function ml_webform_success_41889202() {
+            trackEvent('beta_signup_success', {
+                event_category: 'beta',
+                platform: document.getElementById('betaSystem')?.value || 'unknown'
             });
 
-            // If all paid characters are unlocked, also unlock the "all" tile
-            const allUnlocked = paidCharacters.every(char => unlocked.includes(char));
-            if (allUnlocked) {
-                const allTile = document.querySelector('.character-tile[data-character="all"]');
-                if (allTile) allTile.classList.remove('locked');
+            var $ = window.ml_jQuery || window.jQuery;
+            if ($) {
+                $('.ml-subscribe-form-41889202 .row-success').show();
+                $('.ml-subscribe-form-41889202 .row-form').hide();
+                return;
+            }
+
+            document.querySelector('.ml-subscribe-form-41889202 .row-success').style.display = 'block';
+            document.querySelector('.ml-subscribe-form-41889202 .row-form').style.display = 'none';
+        }
+
+        function trackEvent(name, params) {
+            if (typeof gtag === 'function') {
+                gtag('event', name, params || {});
             }
         }
 
-        document.getElementById('units').addEventListener('change', function() {
-            saveSettings();
-            updateWeather();
+        const betaSection = document.getElementById('download');
+        const betaForm = document.getElementById('betaForm');
+        const betaSystem = document.getElementById('betaSystem');
+        let betaFormViewed = false;
+        let betaFormStarted = false;
+
+        document.querySelectorAll('a[href="#download"]').forEach((link) => {
+            link.addEventListener('click', () => {
+                trackEvent('beta_cta_click', {
+                    event_category: 'beta',
+                    link_text: link.textContent.trim().replace(/\s+/g, ' ')
+                });
+            });
         });
 
-        document.getElementById('autoLocation').addEventListener('change', function() {
-            settings.autoLocation = this.checked;
-            toggleManualLocation();
-            saveSettings();
-            if (this.checked) {
-                updateWeather();
-            }
-        });
+        if ('IntersectionObserver' in window && betaSection) {
+            const betaObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (!betaFormViewed && entry.isIntersecting) {
+                        betaFormViewed = true;
+                        trackEvent('beta_form_view', { event_category: 'beta' });
+                        betaObserver.disconnect();
+                    }
+                });
+            }, { threshold: 0.35 });
+            betaObserver.observe(betaSection);
+        }
 
-        // Initialize
-        loadUnlockedCharacters();
-        checkPendingPurchase();
-        loadSettings();
-        updateTime();
-        setInterval(updateTime, 60000);
+        if (betaForm) {
+            betaForm.addEventListener('input', () => {
+                if (betaFormStarted) return;
+                betaFormStarted = true;
+                trackEvent('beta_form_start', { event_category: 'beta' });
+            });
 
-        // Auto-refresh every 30 minutes
-        setInterval(updateWeather, 30 * 60 * 1000);
+            betaForm.addEventListener('submit', () => {
+                trackEvent('beta_signup_submit', {
+                    event_category: 'beta',
+                    platform: betaSystem?.value || 'unknown'
+                });
+            });
+        }
 
-        // Start with geolocation
-        updateWeather();
+        if (betaSystem) {
+            betaSystem.addEventListener('change', () => {
+                trackEvent('beta_platform_select', {
+                    event_category: 'beta',
+                    platform: betaSystem.value || 'unknown'
+                });
+            });
+        }
+    </script>
+    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?vb397d78ebaa8a0f631d35384c46d781b" type="text/javascript"></script>
+    <script>
+        fetch('https://assets.mailerlite.com/jsonp/575409/forms/188717064180991705/takel');
     </script>
 </body>
 </html>
