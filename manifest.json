@@ -10,8 +10,8 @@
   "categories": ["weather", "utilities"],
   "icons": [
     {
-      "src": "/img/ic_launcher.png",
-      "sizes": "96x96",
+      "src": "/img/grumpy-app-icon.png",
+      "sizes": "1024x1024",
       "type": "image/png",
       "purpose": "any maskable"
     }

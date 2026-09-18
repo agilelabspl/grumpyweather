@@ -8,7 +8,7 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-9MNL4FW7WY', {
-        page_title: 'Grumpy Weather Beta Landing'
+        page_title: 'Grumpy Weather App Landing'
       });
     </script>
     <meta charset="UTF-8">
@@ -18,8 +18,8 @@
     <meta property="og:title" content="Grumpy Weather - Mobile Weather App With Attitude">
     <meta property="og:description" content="A mobile weather app that tells you the forecast and judges it a little.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://grumpyweather.com/img/ic_launcher.png">
-    <link rel="icon" type="image/png" href="img/ic_launcher.png">
+    <meta property="og:image" content="https://grumpyweather.com/img/grumpy-app-icon.png">
+    <link rel="icon" type="image/png" href="img/grumpy-app-icon.png">
     <link rel="manifest" href="manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -111,8 +111,9 @@
         }
 
         .brand img {
-            width: 42px;
-            height: 42px;
+            width: 52px;
+            height: 52px;
+            border-radius: 13px;
             filter: drop-shadow(0 8px 18px var(--shadow));
         }
 
@@ -138,14 +139,6 @@
 
         .nav a:hover {
             color: var(--ink);
-        }
-
-        .nav-cta {
-            padding: 11px 16px;
-            border-radius: var(--radius);
-            color: var(--ink);
-            background: linear-gradient(145deg, var(--blue) 0%, #357abd 52%, var(--blue-dark) 100%);
-            box-shadow: 0 12px 30px rgba(53, 122, 189, 0.28);
         }
 
         .hero {
@@ -187,8 +180,8 @@
             width: 9px;
             height: 9px;
             border-radius: 50%;
-            background: var(--danger);
-            box-shadow: 0 0 18px rgba(255, 107, 107, 0.85);
+            background: #68d391;
+            box-shadow: 0 0 18px rgba(104, 211, 145, 0.85);
         }
 
         h1 {
@@ -216,69 +209,94 @@
             margin-top: 32px;
         }
 
-        .store-button {
-            min-width: 156px;
-            min-height: 52px;
+        .app-store-badge-link {
             display: inline-flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 9px 18px;
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            border-radius: var(--radius);
-            background: rgba(0, 0, 0, 0.36);
-            box-shadow: 0 18px 34px rgba(0, 0, 0, 0.24);
-            transition: transform 0.2s ease, background 0.2s ease;
+            align-items: center;
+            line-height: 0;
+            transition: transform 0.2s ease, filter 0.2s ease;
         }
 
-        .store-button:hover {
+        .app-store-badge-link:hover {
             transform: translateY(-2px);
-            background: rgba(0, 0, 0, 0.48);
+            filter: brightness(1.08);
         }
 
-        .store-kicker {
-            color: rgba(255, 255, 255, 0.62);
-            font-size: 10px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
+        .app-store-badge-link:focus-visible {
+            outline: 3px solid rgba(255, 255, 255, 0.9);
+            outline-offset: 4px;
+            border-radius: 10px;
         }
 
-        .store-name {
-            font-size: 18px;
-            font-weight: 800;
+        .app-store-badge {
+            display: block;
+            width: 205px;
+            height: auto;
+            border-radius: 10px;
         }
 
-        .beta-card {
+        .nav .app-store-badge {
+            width: 142px;
+        }
+
+        .app-icon-callout {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .app-icon-callout img {
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.34);
+        }
+
+        .app-icon-callout strong,
+        .app-icon-callout span {
+            display: block;
+        }
+
+        .app-icon-callout strong {
+            margin-bottom: 4px;
+            color: var(--ink);
+            font-size: 14px;
+        }
+
+        .download-card {
             position: relative;
             max-width: 500px;
             width: 100%;
-            padding: 24px;
+            padding: 32px;
             border: 1px solid rgba(255, 255, 255, 0.18);
             border-radius: 28px;
             background: rgba(255, 255, 255, 0.92);
             color: #1a202c;
             box-shadow: 0 34px 90px rgba(0, 0, 0, 0.32);
+            text-align: center;
         }
 
-        .beta-section {
+        .app-store-section {
             padding: 20px 0 76px;
         }
 
-        .beta-layout {
+        .app-store-layout {
             display: grid;
             grid-template-columns: minmax(0, 0.78fr) minmax(380px, 0.72fr);
             align-items: center;
             gap: 42px;
         }
 
-        .beta-copy h2 {
+        .app-store-copy h2 {
             font-family: var(--display);
             font-size: clamp(44px, 5vw, 72px);
             line-height: 0.95;
             letter-spacing: 2px;
         }
 
-        .beta-copy p {
+        .app-store-copy p {
             max-width: 560px;
             margin-top: 16px;
             color: var(--muted);
@@ -287,23 +305,23 @@
             font-weight: 600;
         }
 
-        .beta-character-strip {
+        .character-strip {
             display: flex;
             gap: 10px;
             margin-top: 24px;
         }
 
-        .beta-character-strip img {
-            width: 54px;
-            height: 54px;
+        .character-strip img {
+            width: 72px;
+            height: 72px;
             object-fit: contain;
-            padding: 7px;
+            padding: 5px;
             border: 1px solid var(--line);
             border-radius: var(--radius);
             background: rgba(255, 255, 255, 0.07);
         }
 
-        .beta-card::before {
+        .download-card::before {
             content: '';
             position: absolute;
             z-index: -1;
@@ -315,15 +333,7 @@
             transform: rotate(12deg);
         }
 
-        .beta-card-head {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 18px;
-            margin-bottom: 20px;
-        }
-
-        .beta-card-title span {
+        .download-card-kicker {
             display: block;
             color: rgba(26, 32, 44, 0.58);
             font-size: 12px;
@@ -332,140 +342,36 @@
             letter-spacing: 0.08em;
         }
 
-        .beta-card-title strong {
+        .download-card h3 {
             display: block;
-            margin-top: 4px;
+            margin-top: 8px;
             font-family: var(--display);
-            font-size: 34px;
-            line-height: 1;
+            font-size: 44px;
+            line-height: .95;
             letter-spacing: 1px;
         }
 
-        .beta-mini-weather {
-            flex: 0 0 auto;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 10px;
-            border-radius: var(--radius);
-            background: rgba(26, 26, 46, 0.08);
+        .download-app-icon {
+            width: min(230px, 72%);
+            aspect-ratio: 1;
+            margin: 26px auto 22px;
+            border-radius: 26%;
+            box-shadow: 0 24px 58px rgba(26, 32, 44, 0.3);
         }
 
-        .beta-mini-weather img {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-        }
-
-        .beta-mini-weather b {
-            display: block;
-            font-size: 18px;
-            line-height: 1;
-        }
-
-        .beta-mini-weather small {
-            display: block;
-            margin-top: 2px;
-            color: rgba(26, 32, 44, 0.56);
-            font-size: 10px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
-
-        .beta-form {
-            display: grid;
-            gap: 15px;
-        }
-
-        .field {
-            display: grid;
-            gap: 8px;
-        }
-
-        .field label {
-            color: #1f2933;
-            font-size: 13px;
-            font-weight: 800;
-        }
-
-        .field input,
-        .field select {
-            width: 100%;
-            min-height: 50px;
-            padding: 0 16px;
-            border: 1px solid rgba(26, 32, 44, 0.16);
-            border-radius: 12px;
-            background: #fff;
-            color: #1a202c;
-            font: 700 14px var(--body);
-            outline: none;
-            transition: border 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .field input:focus,
-        .field select:focus {
-            border-color: var(--blue);
-            box-shadow: 0 0 0 4px rgba(74, 144, 217, 0.18);
-        }
-
-        .field input::placeholder {
-            color: rgba(26, 32, 44, 0.46);
-        }
-
-        .beta-submit {
-            min-height: 52px;
-            margin-top: 3px;
-            border: none;
-            border-radius: 999px;
-            background: linear-gradient(145deg, var(--blue) 0%, #357abd 52%, var(--blue-dark) 100%);
-            color: #fff;
-            font: 800 14px var(--body);
-            cursor: pointer;
-            box-shadow: 0 18px 34px rgba(53, 122, 189, 0.28);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .beta-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 22px 42px rgba(53, 122, 189, 0.34);
-        }
-
-        .form-note {
-            color: rgba(26, 32, 44, 0.58);
-            font-size: 12px;
-            line-height: 1.5;
-            font-weight: 800;
-        }
-
-        .form-status {
-            min-height: 20px;
-            color: var(--blue-dark);
-            font-size: 13px;
-            line-height: 1.45;
-            font-weight: 800;
-        }
-
-        .row-success {
-            padding-top: 8px;
-        }
-
-        .ml-form-successContent h3 {
-            font-family: var(--display);
-            font-size: 38px;
-            line-height: 1;
-            letter-spacing: 1px;
-            color: #1a202c;
-        }
-
-        .ml-form-successContent p {
-            margin-top: 10px;
+        .download-card p {
+            max-width: 330px;
+            margin: 0 auto 22px;
             color: rgba(26, 32, 44, 0.62);
             font-size: 14px;
             line-height: 1.55;
             font-weight: 800;
         }
 
+        .download-card .app-store-badge {
+            width: min(230px, 100%);
+            margin: 0 auto;
+        }
         .metric-strip {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -832,10 +738,7 @@
         }
 
         .download-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 28px;
+            text-align: center;
         }
 
         .download-inner h2 {
@@ -911,11 +814,11 @@
                 max-width: none;
             }
 
-            .beta-layout {
+            .app-store-layout {
                 grid-template-columns: 1fr;
             }
 
-            .beta-card {
+            .download-card {
                 max-width: none;
             }
 
@@ -963,15 +866,24 @@
             }
 
             .brand-name {
-                font-size: 24px;
+                font-size: 22px;
+                letter-spacing: 1.4px;
+            }
+
+            .brand img {
+                width: 44px;
+                height: 44px;
+                border-radius: 11px;
             }
 
             .hero {
+                padding-top: 88px;
                 padding-bottom: 30px;
             }
 
             h1 {
-                font-size: 62px;
+                font-size: clamp(50px, 15vw, 62px);
+                line-height: 0.92;
             }
 
             .hero-copy p {
@@ -979,12 +891,13 @@
             }
 
             .actions {
-                align-items: stretch;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 18px;
             }
 
-            .store-button {
-                flex: 1 1 145px;
-                min-width: 0;
+            .app-store-badge {
+                width: 190px;
             }
 
             .metric-strip {
@@ -992,14 +905,36 @@
                 margin-top: 28px;
             }
 
-            .beta-card {
+            .metric {
+                padding: 14px 16px;
+            }
+
+            .app-store-section {
+                padding: 8px 0 56px;
+            }
+
+            .app-store-copy h2 {
+                font-size: 48px;
+            }
+
+            .character-strip {
+                gap: 7px;
+            }
+
+            .character-strip img {
+                width: calc((100vw - 56px) / 5);
+                max-width: 62px;
+                height: auto;
+                aspect-ratio: 1;
+            }
+
+            .download-card {
                 padding: 20px;
                 border-radius: 22px;
             }
 
-            .beta-card-head {
-                align-items: flex-start;
-                flex-direction: column;
+            .download-card h3 {
+                font-size: 38px;
             }
 
             .showcase {
@@ -1044,19 +979,19 @@
             }
 
             .character-rack {
-                width: 196px;
+                width: 224px;
                 bottom: 0;
                 padding: 11px;
             }
 
             .rack-grid {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(5, 1fr);
                 gap: 6px;
             }
 
             .rack-grid img {
-                width: 34px;
-                height: 34px;
+                width: 32px;
+                height: 32px;
                 padding: 4px;
             }
 
@@ -1095,7 +1030,11 @@
             }
 
             .download-band {
-                padding: 50px 0;
+                padding: 44px 0;
+            }
+
+            .download-inner h2 {
+                font-size: 48px;
             }
         }
     </style>
@@ -1104,11 +1043,13 @@
     <header class="topbar">
         <div class="topbar-inner">
             <a class="brand" href="#top" aria-label="Grumpy Weather home">
-                <img src="img/ic_launcher.png" alt="">
+                <img src="img/grumpy-app-icon.png" alt="">
                 <span class="brand-name">Grumpy Weather</span>
             </a>
             <nav class="nav" aria-label="Primary navigation">
-                <a class="nav-cta" href="#download">Join beta</a>
+                <a class="app-store-badge-link app-store-link" href="https://apps.apple.com/pl/app/grumpy-weather-sad-forecast/id6810740621" target="_blank" rel="noopener" aria-label="Download Grumpy Weather on the App Store">
+                    <img class="app-store-badge" src="img/download-on-the-app-store.png" alt="Download on the App Store">
+                </a>
             </nav>
         </div>
     </header>
@@ -1117,9 +1058,18 @@
         <section class="hero">
             <div class="site-shell hero-grid">
                 <div class="hero-copy">
-                    <div class="eyebrow"><span class="status-dot"></span> Private beta opening soon</div>
+                    <div class="eyebrow"><span class="status-dot"></span> Available now on the App Store</div>
                     <h1>Weather forecasts that complain back.</h1>
                     <p>Check the weather. Grumpy forecasts, weird little characters, and one more reason to blame the sky for your plans.</p>
+                    <div class="actions">
+                        <a class="app-store-badge-link app-store-link" href="https://apps.apple.com/pl/app/grumpy-weather-sad-forecast/id6810740621" target="_blank" rel="noopener" aria-label="Download Grumpy Weather on the App Store">
+                            <img class="app-store-badge" src="img/download-on-the-app-store.png" alt="Download on the App Store">
+                        </a>
+                        <div class="app-icon-callout">
+                            <img src="img/grumpy-app-icon.png" alt="Grumpy Weather app icon">
+                            <div><strong>Look for this icon.</strong><span>Grumpy sun. Zero optimism.</span></div>
+                        </div>
+                    </div>
                     <div class="metric-strip" aria-label="App highlights">
                         <div class="metric">
                             <strong>3</strong>
@@ -1130,8 +1080,8 @@
                             <span>grumpy message about actual weather</span>
                         </div>
                         <div class="metric">
-                            <strong>8</strong>
-                            <span>characters to support your daily grumpy mood</span>
+                            <strong>5</strong>
+                            <span>visual styles: the original plus 4 grumpy characters</span>
                         </div>
                     </div>
                 </div>
@@ -1143,15 +1093,15 @@
                             <p>Current conditions, short forecast, and exactly the amount of optimism this weather deserves.</p>
                             <div class="tiny-forecast">
                                 <div class="tiny-day">
-                                    <img src="img/grumpy_5.png" alt="">
+                                    <img src="img/danny-rain.png" alt="">
                                     <span>Mon</span>
                                 </div>
                                 <div class="tiny-day">
-                                    <img src="img/grimmy_10.png" alt="">
+                                    <img src="img/tommy-cloudy.png" alt="">
                                     <span>Tue</span>
                                 </div>
                                 <div class="tiny-day">
-                                    <img src="img/bunny_4.png" alt="">
+                                    <img src="img/rexxy-rain.png" alt="">
                                     <span>Wed</span>
                                 </div>
                             </div>
@@ -1166,26 +1116,26 @@
                                             <span>Now in Warsaw</span>
                                             <strong>Cloudy</strong>
                                         </div>
-                                        <img class="mini-icon" src="img/ic_launcher.png" alt="">
+                                        <img class="mini-icon" src="img/grumpy-app-icon.png" alt="">
                                     </div>
                                     <div class="main-weather">
-                                        <img id="heroCharacter" src="img/grimmy_11.png" alt="Grumpy Weather character">
+                                    <img id="heroCharacter" src="img/basic-cloudy.png" alt="Original Grumpy Weather icon style">
                                         <div class="temperature">14°</div>
                                     </div>
                                     <div class="complaint" id="complaint">Perfect weather for cancelling plans.</div>
                                     <div class="phone-forecast">
                                         <div class="forecast-pill">
-                                            <img id="forecastIcon1" src="img/grimmy_11.png" alt="">
+                                            <img id="forecastIcon1" src="img/basic-clear.png" alt="">
                                             <strong>Fri</strong>
                                             <span>12 / 8</span>
                                         </div>
                                         <div class="forecast-pill">
-                                            <img id="forecastIcon2" src="img/grimmy_5.png" alt="">
+                                            <img id="forecastIcon2" src="img/basic-rain.png" alt="">
                                             <strong>Sat</strong>
                                             <span>10 / 6</span>
                                         </div>
                                         <div class="forecast-pill">
-                                            <img id="forecastIcon3" src="img/grimmy_3.png" alt="">
+                                            <img id="forecastIcon3" src="img/basic-wind.png" alt="">
                                             <strong>Sun</strong>
                                             <span>9 / 4</span>
                                         </div>
@@ -1195,18 +1145,13 @@
                         </div>
 
                         <div class="character-rack" id="characters" aria-hidden="true">
-                            <div class="rack-title">Choose your pessimist</div>
+                            <div class="rack-title">Original + 4 characters</div>
                             <div class="rack-grid">
-                                <img src="img/grumpy_1.png" alt="">
-                                <img src="img/grimmy_1.png" alt="">
-                                <img src="img/bunny_1.png" alt="">
-                                <img src="img/blob_1.png" alt="">
-                                <img src="img/brian_1.png" alt="">
-                                <img src="img/fred_1.png" alt="">
-                                <img src="img/marvin_1.png" alt="">
-                                <img src="img/steve_1.png" alt="">
-                                <img src="img/white_i801.png" alt="">
-                                <img src="img/black_i801.png" alt="">
+                                <img src="img/basic-clear.png" alt="Original style">
+                                <img src="img/danny-clear.png" alt="Danny">
+                                <img src="img/tommy-clear.png" alt="Tommy">
+                                <img src="img/rexxy-clear.png" alt="Rexxy">
+                                <img src="img/grimmy-clear.png" alt="Grimmy">
                             </div>
                         </div>
                     </div>
@@ -1214,77 +1159,35 @@
             </div>
         </section>
 
-        <section class="beta-section" id="download">
-            <div class="site-shell beta-layout">
-                <div class="beta-copy">
-                    <h2>Don't be the last one, as usual.</h2>
-                    <p>Be early for once. I am building an app for people who want to know what the weather is. Leave your name and email. I will reach out when the next testing wave opens. Or I won't.</p>
-                    <div class="beta-character-strip" aria-hidden="true">
-                        <img src="img/grumpy_1.png" alt="">
-                        <img src="img/grimmy_1.png" alt="">
-                        <img src="img/bunny_1.png" alt="">
-                        <img src="img/blob_1.png" alt="">
-                        <img src="img/brian_1.png" alt="">
-                        <img src="img/fred_1.png" alt="">
-                        <img src="img/marvin_1.png" alt="">
-                        <img src="img/steve_1.png" alt="">
-                        <img src="img/white_i801.png" alt="">
+        <section class="app-store-section" id="download">
+            <div class="site-shell app-store-layout">
+                <div class="app-store-copy">
+                    <h2>Your weather has an attitude now.</h2>
+                    <p>Grumpy Weather is available on iPhone. Keep the bright original style or pick Danny, Tommy, Rexxy or Grimmy and let someone else complain about the forecast for once.</p>
+                    <div class="character-strip" aria-label="Grumpy Weather characters">
+                        <img src="img/basic-clear.png" alt="Original bright style">
+                        <img src="img/danny-clear.png" alt="Danny">
+                        <img src="img/tommy-clear.png" alt="Tommy">
+                        <img src="img/rexxy-clear.png" alt="Rexxy">
+                        <img src="img/grimmy-clear.png" alt="Grimmy">
                     </div>
                 </div>
 
-                <div id="mlb2-41889202" class="beta-card ml-form-embedContainer ml-subscribe-form ml-subscribe-form-41889202" aria-label="Beta signup form">
-                    <div class="beta-card-head">
-                        <div class="beta-card-title">
-                            <span>Beta signup</span>
-                            <strong>Early access list</strong>
-                        </div>
-                        <div class="beta-mini-weather" aria-hidden="true">
-                            <img src="img/grimmy_1.png" alt="">
-                            <div>
-                                <b>14°</b>
-                                <small>cloudy</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row-form">
-                        <form class="beta-form ml-block-form" id="betaForm" action="https://assets.mailerlite.com/jsonp/575409/forms/188717064180991705/subscribe" data-code="" method="post">
-                            <div class="field ml-form-fieldRow">
-                                <label for="betaName">Name</label>
-                                <input id="betaName" name="fields[name]" type="text" autocomplete="given-name" placeholder="Your name" required>
-                            </div>
-                            <div class="field ml-form-fieldRow">
-                                <label for="betaEmail">Email</label>
-                                <input id="betaEmail" name="fields[email]" type="email" autocomplete="email" placeholder="you@email.com" required>
-                            </div>
-                            <div class="field ml-form-fieldRow ml-last-item">
-                                <label for="betaSystem">System</label>
-                                <select id="betaSystem" name="fields[last_name]" required>
-                                    <option value="">Choose your misery device</option>
-                                    <option value="iOS">iOS</option>
-                                    <option value="Android">Android</option>
-                                </select>
-                            </div>
-                            <input type="hidden" name="ml-submit" value="1">
-                            <button class="beta-submit primary" type="submit">Join the beta</button>
-                            <input type="hidden" name="anticsrf" value="true">
-                            <p class="form-note">Rather no spam.</p>
-                        </form>
-                    </div>
-                    <div class="row-success" style="display: none">
-                        <div class="ml-form-successContent">
-                            <h3>You're on the list.</h3>
-                            <p>Try not to act surprised if the weather still disappoints you.</p>
-                        </div>
-                    </div>
+                <div class="download-card">
+                    <span class="download-card-kicker">Available on iPhone</span>
+                    <h3>Remember the grumpy sun.</h3>
+                    <img class="download-app-icon" src="img/grumpy-app-icon.png" alt="Grumpy Weather app icon with a grumpy yellow sun behind white clouds">
+                    <p>Find this icon in the App Store. The forecast is useful. The attitude is unavoidable.</p>
+                    <a class="app-store-badge-link app-store-link" href="https://apps.apple.com/pl/app/grumpy-weather-sad-forecast/id6810740621" target="_blank" rel="noopener" aria-label="Download Grumpy Weather on the App Store">
+                        <img class="app-store-badge" src="img/download-on-the-app-store.png" alt="Download on the App Store">
+                    </a>
                 </div>
             </div>
         </section>
 
         <section class="download-band">
             <div class="site-shell download-inner">
-                <div>
-                    <h2>Weather is bad. The app is not.</h2>
-                </div>
+                <h2>Weather is bad. The app is not.</h2>
             </div>
         </section>
     </main>
@@ -1296,36 +1199,41 @@
     <script>
         const characters = [
             {
-                src: 'img/grimmy_11.png',
-                forecast: ['img/grimmy_11.png', 'img/grimmy_5.png', 'img/grimmy_3.png'],
+                name: 'Original',
+                src: 'img/basic-cloudy.png',
+                forecast: ['img/basic-clear.png', 'img/basic-rain.png', 'img/basic-wind.png'],
                 text: 'Perfect weather for cancelling plans.',
                 condition: 'Cloudy',
                 temp: '14°'
             },
             {
-                src: 'img/grumpy_5.png',
-                forecast: ['img/grumpy_5.png', 'img/grumpy_11.png', 'img/grumpy_3.png'],
+                name: 'Danny',
+                src: 'img/danny-cloudy.png',
+                forecast: ['img/danny-clear.png', 'img/danny-rain.png', 'img/danny-wind.png'],
+                text: 'Perfect weather for cancelling plans.',
+                condition: 'Cloudy',
+                temp: '14°'
+            },
+            {
+                name: 'Tommy',
+                src: 'img/tommy-cloudy.png',
+                forecast: ['img/tommy-clear.png', 'img/tommy-rain.png', 'img/tommy-wind.png'],
                 text: 'Rain. Nature found the leak button.',
                 condition: 'Rain',
                 temp: '11°'
             },
             {
-                src: 'img/bunny_1.png',
-                forecast: ['img/bunny_1.png', 'img/bunny_10.png', 'img/bunny_12.png'],
+                name: 'Rexxy',
+                src: 'img/rexxy-cloudy.png',
+                forecast: ['img/rexxy-clear.png', 'img/rexxy-rain.png', 'img/rexxy-wind.png'],
                 text: 'Sunshine. Deeply suspicious behavior.',
                 condition: 'Sunny',
                 temp: '24°'
             },
             {
-                src: 'img/marvin_3.png',
-                forecast: ['img/marvin_3.png', 'img/marvin_4.png', 'img/marvin_11.png'],
-                text: 'Snow. Good luck pretending this is fun.',
-                condition: 'Snow',
-                temp: '-3°'
-            },
-            {
-                src: 'img/steve_6.png',
-                forecast: ['img/steve_6.png', 'img/steve_5.png', 'img/steve_11.png'],
+                name: 'Grimmy',
+                src: 'img/grimmy-cloudy.png',
+                forecast: ['img/grimmy-clear.png', 'img/grimmy-rain.png', 'img/grimmy-wind.png'],
                 text: 'Thunder. The sky is being dramatic.',
                 condition: 'Storm',
                 temp: '17°'
@@ -1352,6 +1260,9 @@
             });
             window.setTimeout(() => {
                 heroCharacter.src = next.src;
+                heroCharacter.alt = next.name === 'Original'
+                    ? 'Original Grumpy Weather icon style'
+                    : `${next.name}, a Grumpy Weather character`;
                 complaint.textContent = next.text;
                 condition.textContent = next.condition;
                 temperature.textContent = next.temp;
@@ -1363,84 +1274,20 @@
             }, 180);
         }, 3600);
 
-        function ml_webform_success_41889202() {
-            trackEvent('beta_signup_success', {
-                event_category: 'beta',
-                platform: document.getElementById('betaSystem')?.value || 'unknown'
-            });
-
-            var $ = window.ml_jQuery || window.jQuery;
-            if ($) {
-                $('.ml-subscribe-form-41889202 .row-success').show();
-                $('.ml-subscribe-form-41889202 .row-form').hide();
-                return;
-            }
-
-            document.querySelector('.ml-subscribe-form-41889202 .row-success').style.display = 'block';
-            document.querySelector('.ml-subscribe-form-41889202 .row-form').style.display = 'none';
-        }
-
         function trackEvent(name, params) {
             if (typeof gtag === 'function') {
                 gtag('event', name, params || {});
             }
         }
 
-        const betaSection = document.getElementById('download');
-        const betaForm = document.getElementById('betaForm');
-        const betaSystem = document.getElementById('betaSystem');
-        let betaFormViewed = false;
-        let betaFormStarted = false;
-
-        document.querySelectorAll('a[href="#download"]').forEach((link) => {
+        document.querySelectorAll('.app-store-link').forEach((link) => {
             link.addEventListener('click', () => {
-                trackEvent('beta_cta_click', {
-                    event_category: 'beta',
-                    link_text: link.textContent.trim().replace(/\s+/g, ' ')
+                trackEvent('app_store_click', {
+                    event_category: 'download',
+                    link_text: link.getAttribute('aria-label') || 'Download on the App Store'
                 });
             });
         });
-
-        if ('IntersectionObserver' in window && betaSection) {
-            const betaObserver = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (!betaFormViewed && entry.isIntersecting) {
-                        betaFormViewed = true;
-                        trackEvent('beta_form_view', { event_category: 'beta' });
-                        betaObserver.disconnect();
-                    }
-                });
-            }, { threshold: 0.35 });
-            betaObserver.observe(betaSection);
-        }
-
-        if (betaForm) {
-            betaForm.addEventListener('input', () => {
-                if (betaFormStarted) return;
-                betaFormStarted = true;
-                trackEvent('beta_form_start', { event_category: 'beta' });
-            });
-
-            betaForm.addEventListener('submit', () => {
-                trackEvent('beta_signup_submit', {
-                    event_category: 'beta',
-                    platform: betaSystem?.value || 'unknown'
-                });
-            });
-        }
-
-        if (betaSystem) {
-            betaSystem.addEventListener('change', () => {
-                trackEvent('beta_platform_select', {
-                    event_category: 'beta',
-                    platform: betaSystem.value || 'unknown'
-                });
-            });
-        }
-    </script>
-    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?vb397d78ebaa8a0f631d35384c46d781b" type="text/javascript"></script>
-    <script>
-        fetch('https://assets.mailerlite.com/jsonp/575409/forms/188717064180991705/takel');
     </script>
 </body>
 </html>
